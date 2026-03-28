@@ -7,11 +7,18 @@
     "fields": ["Computer Science", "Artificial Intelligence"],
     "qs_rank": 25,
     "cn_rank": 1,
+    "fees": 28000,
+    "deadline": "2026-03-31",
+    "scholarships": ["CSC", "Tsinghua University Scholarship"],
+    "official_link": "https://www.tsinghua.edu.cn",
     "requirements": {
       "gpa_min": 3.3,
       "toefl_min": 95,
       "ielts_min": 6.5,
-      "hsk_required": false
+      "hsk_required": false,
+      "hsk_min_level": null,
+      "hsk_min_score": null,
+      "special_requirements": "May require interview or entrance test"
     }
   },
   {
@@ -22,11 +29,18 @@
     "fields": ["Bioinformatics", "Life Sciences"],
     "qs_rank": 17,
     "cn_rank": 2,
+    "fees": 26000,
+    "deadline": "2026-03-31",
+    "scholarships": ["CSC", "Peking University Scholarship"],
+    "official_link": "https://www.pku.edu.cn",
     "requirements": {
-      "gpa_min": 3.4,
+      "gpa_min": 3.8,
       "toefl_min": 100,
       "ielts_min": 7.0,
-      "hsk_required": false
+      "hsk_required": false,
+      "hsk_min_level": 6,
+      "hsk_min_score": 210,
+      "special_requirements": "需要参加入学考试或面试"
     }
   },
   {
@@ -37,11 +51,18 @@
     "fields": ["Mechanical Engineering"],
     "qs_rank": 50,
     "cn_rank": 3,
+    "fees": 24000,
+    "deadline": "2026-04-15",
+    "scholarships": ["CSC", "SJTU Scholarship"],
+    "official_link": "https://www.sjtu.edu.cn",
     "requirements": {
       "gpa_min": 3.0,
       "toefl_min": 90,
       "ielts_min": 6.0,
-      "hsk_required": false
+      "hsk_required": false,
+      "hsk_min_level": null,
+      "hsk_min_score": null,
+      "special_requirements": "Portfolio or project list recommended"
     }
   },
   {
@@ -52,11 +73,18 @@
     "fields": ["Finance", "Economics"],
     "qs_rank": 44,
     "cn_rank": 4,
+    "fees": 25000,
+    "deadline": "2026-03-20",
+    "scholarships": ["CSC", "Fudan International Scholarship"],
+    "official_link": "https://www.fudan.edu.cn",
     "requirements": {
       "gpa_min": 3.2,
       "toefl_min": 95,
       "ielts_min": 6.5,
-      "hsk_required": false
+      "hsk_required": false,
+      "hsk_min_level": null,
+      "hsk_min_score": null,
+      "special_requirements": "Economics/math background preferred"
     }
   }
 ]

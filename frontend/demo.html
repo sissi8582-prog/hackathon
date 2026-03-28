@@ -2,430 +2,570 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyInChina - Your Gateway to Chinese Universities</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SinoScholar - Your Gateway to Chinese Universities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fb;
             min-height: 100vh;
+            color: #1a2c3e;
         }
+
+        /* Modern Navigation */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 32px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 16px 40px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+        }
+
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 48px;
         }
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 24px;
-            font-weight: bold;
+
+        .nav-links {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            gap: 32px;
         }
+
         .nav-link {
-            color: white;
             text-decoration: none;
-            font-size: 14px;
+            color: #4b5563;
             font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
             cursor: pointer;
         }
+
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
         .nav-right {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
+
+        /* Button Styles */
         .btn {
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 40px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
             border: none;
             text-decoration: none;
-            transition: transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
+
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
         }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #2563eb;
+            border: 2px solid #2563eb;
         }
+
+        .btn-secondary:hover {
+            background: #eff6ff;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #4b5563;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-outline:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
         .btn-ghost {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
         }
+
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 48px;
+            padding: 40px 32px;
         }
+
+        /* Hero Section */
         .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4fa 100%);
+            border-radius: 32px;
+            padding: 64px 48px;
             text-align: center;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
+            border: 1px solid rgba(37, 99, 235, 0.1);
         }
+
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e2a3a 0%, #2563eb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
         }
+
         .hero p {
-            font-size: 20px;
-            color: #666;
-            margin-bottom: 32;
+            font-size: 18px;
+            color: #4b5563;
+            max-width: 700px;
+            margin: 0 auto 16px;
             line-height: 1.6;
         }
+
         .hero .subtitle {
             font-size: 16px;
-            color: #888;
-            margin-bottom: 40;
-            line-height: 1.8;
+            color: #6b7280;
+            margin-bottom: 32px;
         }
+
         .hero-buttons {
             display: flex;
             gap: 16px;
             justify-content: center;
-            margin-bottom: 48;
+            margin-bottom: 48px;
         }
+
         .stats {
             display: flex;
-            gap: 32;
+            gap: 48px;
             justify-content: center;
+            padding-top: 24px;
+            border-top: 1px solid #e8edf5;
         }
+
         .stat-item {
             text-align: center;
         }
+
         .stat-number {
             font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
+            font-weight: 800;
+            color: #2563eb;
         }
+
         .stat-label {
             font-size: 14px;
-            color: #888;
+            color: #6b7280;
+            margin-top: 4px;
         }
+
+        /* Cards */
         .card {
             background: white;
+            border-radius: 24px;
             padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 24;
+            box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f8;
+            transition: box-shadow 0.2s;
         }
+
+        .card:hover {
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.1);
+        }
+
         .card h2 {
-            font-size: 36px;
-            margin-bottom: 8;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #1e2a3a, #2d3a4a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
         }
-        .card p {
-            color: #888;
-            margin-bottom: 32;
+
+        .card > p {
+            color: #6b7280;
+            margin-bottom: 28px;
         }
+
+        /* Form Elements */
         .form-group {
-            margin-bottom: 20;
+            margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 8;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
         }
+
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8;
-            font-size: 14;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
+            border: 2px solid #e5e9f0;
+            border-radius: 16px;
+            font-size: 14px;
+            transition: all 0.2s;
+            font-family: inherit;
         }
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
+
+        /* Upload Area */
         .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 12;
-            padding: 32;
+            border: 2px dashed #3b82f6;
+            border-radius: 24px;
+            padding: 40px;
             text-align: center;
-            background: #f8f9ff;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 16;
-        }
-        .upload-area:hover {
-            background: #f0f4ff;
-        }
-        .upload-icon {
-            font-size: 48;
-            margin-bottom: 8;
-        }
-        .upload-text {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 4;
-        }
-        .upload-hint {
-            color: #888;
-            font-size: 14;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24 0;
-        }
-        .divider-line {
-            flex: 1;
-            height: 1;
-            background: #e0e0e0;
-        }
-        .divider-text {
-            padding: 0 16;
-            color: #888;
-            font-size: 14;
-        }
-        .program-card {
-            padding: 24;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12;
+            background: #fafcff;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 16;
+            margin-bottom: 16px;
         }
+
+        .upload-area:hover {
+            background: #f0f6ff;
+            border-color: #2563eb;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .upload-text {
+            color: #3b82f6;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .upload-hint {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* Program Cards */
+        .program-card {
+            padding: 24px;
+            background: white;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-bottom: 16px;
+        }
+
         .program-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 12px 24px -12px rgba(59, 130, 246, 0.2);
             transform: translateY(-2px);
         }
+
         .program-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12;
+            margin-bottom: 12px;
         }
-        .program-title {
-            flex: 1;
-        }
+
         .program-title h3 {
-            font-size: 20;
+            font-size: 20px;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 8;
+            color: #1f2a3e;
+            margin-bottom: 6px;
         }
+
         .program-name {
-            font-size: 16;
-            color: #667eea;
+            font-size: 15px;
+            color: #3b82f6;
             font-weight: 600;
-            margin-bottom: 8;
         }
+
         .program-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20;
-            font-size: 14;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 12px;
             font-weight: 600;
             white-space: nowrap;
         }
+
         .program-meta {
             display: flex;
-            gap: 24;
-            font-size: 14;
-            color: #666;
-            margin-bottom: 12;
+            gap: 20px;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
         }
+
         .program-meta span {
             display: flex;
             align-items: center;
-            gap: 4;
+            gap: 4px;
         }
+
         .program-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8;
+            gap: 8px;
         }
+
         .program-tag {
-            background: #f0f0f0;
-            color: #666;
+            background: #f0f4fa;
+            color: #4b5563;
             padding: 4px 12px;
-            border-radius: 12;
-            font-size: 12;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 500;
         }
+
+        /* Utility Classes */
         .hidden {
-            display: none;
+            display: none !important;
         }
+
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20;
+            gap: 24px;
         }
+
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24;
+            gap: 24px;
         }
-        .requirement-box {
-            padding: 16;
-            background: #f8f9ff;
-            border-radius: 8;
-            border-left: 4px solid #667eea;
-            margin-bottom: 16;
-        }
-        .requirement-label {
-            font-size: 12;
-            color: #888;
-            margin-bottom: 4;
-            font-weight: 600;
-        }
-        .requirement-value {
-            font-size: 18;
-            color: #333;
-            font-weight: 700;
-        }
-        .success-box {
-            padding: 24;
-            background: #ecfdf5;
-            border-radius: 8;
-            border: 2px solid #10b981;
-            text-align: center;
-        }
-        .error-box {
-            padding: 16;
-            background: #fef2f2;
-            border-radius: 8;
-            border-left: 4px solid #ef4444;
-            display: flex;
-            align-items: flex-start;
-            gap: 12;
-            margin-bottom: 12;
-        }
-        .missing-requirement-item {
-            padding: 12;
-            background: #fff5f5;
-            border-radius: 6;
-            border-left: 3px solid #ef4444;
-            margin-bottom: 8;
-        }
-        .missing-requirement-title {
-            font-size: 14;
-            font-weight: 600;
-            color: #dc2626;
-            margin-bottom: 4;
-        }
-        .missing-requirement-detail {
-            font-size: 13;
-            color: #666;
-            margin-bottom: 2;
-        }
-        .missing-requirement-comparison {
-            font-size: 12;
-            color: #991b1b;
-            font-weight: 500;
-            margin-top: 4;
-        }
-        .back-btn {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 10px 24px;
-            border-radius: 8;
-            font-size: 14;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 24;
-            display: flex;
-            align-items: center;
-            gap: 8;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+
         .detail-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 24;
+            gap: 32px;
         }
+
         .sticky-sidebar {
             position: sticky;
-            top: 24;
+            top: 100px;
         }
-        .field-tag {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 16;
-            font-size: 13;
+
+        .requirement-box {
+            padding: 20px;
+            background: #f8fafd;
+            border-radius: 20px;
+            border-left: 4px solid #3b82f6;
+            margin-bottom: 16px;
+        }
+
+        .requirement-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-weight: 600;
-            margin-right: 8;
-            margin-bottom: 8;
+        }
+
+        .requirement-value {
+            font-size: 24px;
+            color: #1f2a3e;
+            font-weight: 700;
+        }
+
+        .field-tag {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
             display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+
+        .success-box {
+            padding: 32px;
+            background: linear-gradient(135deg, #f0fdf9, #e6f7f0);
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid #86efac;
+        }
+
+        .error-box {
+            padding: 20px;
+            background: #fef2f2;
+            border-radius: 20px;
+            border-left: 4px solid #ef4444;
+        }
+
+        .missing-requirement-item {
+            padding: 16px;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .missing-requirement-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ef4444;
+            margin-bottom: 6px;
+        }
+
+        .back-btn {
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #eff6ff;
+            transform: translateX(-4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-left {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .hero {
+                padding: 40px 24px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .grid-2, .grid-3, .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 24px 16px;
+            }
+            .stats {
+                gap: 24px;
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-left">
-            <a href="#" class="logo">
-                <span>🎓</span>
-                <span>StudyInChina</span>
+            <a href="#" class="logo" onclick="showPage('home')">
+                <i class="fas fa-graduation-cap"></i>
+                <span>SinoScholar</span>
             </a>
-            <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
-            <a href="#" class="nav-link" onclick="showPage('filters')">Apply</a>
+            <div class="nav-links">
+                <a href="#" class="nav-link" data-i18n="nav.home" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" data-i18n="nav.apply" onclick="showPage('filters')">Apply</a>
+            </div>
         </div>
         <div class="nav-right">
-            <a href="#" class="nav-link" onclick="showPage('login')">Login</a>
-            <a href="#" class="nav-link btn btn-secondary" onclick="showPage('register')">Register</a>
+            <a href="#" class="nav-link" data-i18n="auth.login" onclick="showPage('login')">Login</a>
+            <a href="#" class="btn btn-secondary" data-i18n="auth.register" onclick="showPage('register')">Register</a>
+            <a href="#" id="admin-nav-link" class="btn btn-outline" style="display:none;" onclick="showPage('admin')">
+                <i class="fas fa-cog"></i> Admin
+            </a>
+            <a href="#" id="compare-nav-link" class="btn btn-outline" style="display:none;" onclick="showPage('compare')">
+                <i class="fas fa-columns"></i> <span data-i18n="nav.compare">Compare</span>
+            </a>
+            <select id="lang-select" class="btn btn-outline" style="padding: 8px 12px;">
+                <option value="en">EN</option>
+                <option value="id">ID</option>
+            </select>
         </div>
     </nav>
 
     <div id="home-page" class="container">
         <div class="hero">
-            <h1>Study in China</h1>
-            <p>Your Gateway to Chinese Universities</p>
-            <p class="subtitle">
-                We help Indonesian students discover and apply to top Chinese universities. 
-                Upload your CV, let AI analyze your profile, and find the perfect program for you.
+            <h1 data-i18n="hero.title">Study in China</h1>
+            <p data-i18n="hero.tagline">Your Gateway to Chinese Universities</p>
+            <p class="subtitle" data-i18n="hero.mission">
+                We help Indonesian students discover and apply to top Chinese universities. Upload your CV, let AI analyze your profile, and find the perfect program for you.
             </p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="showPage('filters')">Start Your Journey</button>
-                <button class="btn btn-secondary" onclick="showPage('register')">Create Account</button>
+                <button class="btn btn-primary" onclick="showPage('filters')"><i class="fas fa-rocket"></i> <span data-i18n="hero.ctaStart">Start Your Journey</span></button>
+                <button class="btn btn-secondary" onclick="showPage('register')"><i class="fas fa-user-plus"></i> <span data-i18n="hero.ctaRegister">Create Account</span></button>
             </div>
             <div class="stats">
                 <div class="stat-item">
@@ -446,238 +586,160 @@
 
     <div id="filters-page" class="container hidden">
         <div class="card">
-            <h2>Upload Your CV</h2>
-            <p>Let AI analyze your profile and find best programs for you</p>
+            <h2><i class="fas fa-cloud-upload-alt"></i> <span data-i18n="apply.uploadTitle">Upload Your CV</span></h2>
+            <p data-i18n="apply.uploadDesc">Let AI analyze your profile and find best programs for you</p>
             
-            <div class="upload-area">
+            <div class="upload-area" id="upload-area">
                 <div class="upload-icon">📄</div>
-                <div class="upload-text">Click to upload or drag and drop</div>
-                <div class="upload-hint">PDF or TXT files only</div>
+                <div class="upload-text" data-i18n="apply.uploadClick">Click to upload or drag and drop</div>
+                <div class="upload-hint" data-i18n="apply.supported">Supported: PDF, DOCX, TXT</div>
             </div>
-            <button class="btn btn-primary" style="width: 100%; margin-bottom: 24;">Extract Information from CV</button>
+            <div id="selected-file-name" style="color:#6b7280; font-size: 12px; margin: 8px 0 12px 0;"></div>
+            <div id="selected-files-list" style="color:#6b7280; font-size: 12px; margin: 4px 0 12px 0;"></div>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <select id="sample-cv-select" style="flex:1; padding: 10px; border: 2px solid #e5e9f0; border-radius: 12px;">
+                    <option value="">-- Select Sample CV --</option>
+                </select>
+                <button id="load-sample-selected-btn" class="btn btn-secondary">Load</button>
+            </div>
+            <button id="batch-extract-btn" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;"><i class="fas fa-layer-group"></i> <span data-i18n="apply.batchExtract">Batch Extract (Minimax)</span></button>
+            <button id="extract-from-file-btn" class="btn btn-primary" style="width: 100%; margin-bottom: 24px;"><i class="fas fa-file-alt"></i> <span data-i18n="apply.extractFile">Extract Information from CV</span></button>
 
-            <div class="divider">
-                <div class="divider-line"></div>
-                <div class="divider-text">OR</div>
-                <div class="divider-line"></div>
+            <div style="display: flex; align-items: center; margin: 24px 0;">
+                <div style="flex: 1; height: 1px; background: #e5e9f0;"></div>
+                <div style="padding: 0 16px; color: #9ca3af; font-size: 14px;" data-i18n="apply.or">OR</div>
+                <div style="flex: 1; height: 1px; background: #e5e9f0;"></div>
             </div>
 
             <div class="form-group">
-                <label>Paste Your CV Text</label>
-                <textarea rows="6" placeholder="Paste your CV content here..."></textarea>
+                <label><i class="fas fa-paste"></i> <span data-i18n="apply.pasteTitle">Paste Your CV Text</span></label>
+                <textarea id="cv-textarea" rows="6" placeholder="Paste your CV content here..." data-i18n-placeholder="apply.pastePlaceholder"></textarea>
             </div>
-            <button class="btn btn-primary" style="width: 100%; margin-bottom: 24;">Extract Information from Text</button>
+            <button id="extract-from-text-btn" class="btn btn-primary" style="width: 100%; margin-bottom: 24px;"><i class="fas fa-magic"></i> <span data-i18n="apply.extractText">Extract Information from Text</span></button>
+            <div id="batch-results" style="margin-top: 8px;"></div>
         </div>
 
         <div class="card">
-            <h2>Your Profile</h2>
-            <div class="grid-2" style="margin-bottom: 24;">
+            <h2><i class="fas fa-user-circle"></i> <span data-i18n="apply.profile">Your Profile</span></h2>
+            <div class="grid-2" style="margin-bottom: 24px;">
                 <div class="form-group">
-                    <label>GPA</label>
-                    <input type="text" placeholder="e.g., 3.5">
+                    <label data-i18n="profile.gpa">GPA</label>
+                    <input id="profile-gpa" type="text" placeholder="e.g., 3.5">
                 </div>
                 <div class="form-group">
-                    <label>TOEFL Score</label>
-                    <input type="text" placeholder="e.g., 90">
+                    <label data-i18n="profile.toefl">TOEFL Score</label>
+                    <input id="profile-toefl" type="text" placeholder="e.g., 90">
                 </div>
                 <div class="form-group">
-                    <label>IELTS Score</label>
-                    <input type="text" placeholder="e.g., 6.5">
+                    <label data-i18n="profile.ielts">IELTS Score</label>
+                    <input id="profile-ielts" type="text" placeholder="e.g., 6.5">
                 </div>
                 <div class="form-group">
-                    <label>HSK Score</label>
-                    <input type="text" placeholder="e.g., 5">
+                    <label data-i18n="profile.hsk">HSK Level</label>
+                    <input id="profile-hsk" type="text" placeholder="e.g., 5">
                 </div>
             </div>
 
-
-
-            <button class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 18;" onclick="showPage('results')">Continue to Find Programs</button>
+            <button class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 18px;" onclick="saveProfileAndContinue()">
+                <i class="fas fa-arrow-right"></i> <span data-i18n="apply.continue">Continue to Find Programs</span>
+            </button>
         </div>
     </div>
 
     <div id="results-page" class="container hidden">
         <div class="card">
-            <h2>Find Programs</h2>
-            <p>Discover your perfect program at Chinese universities</p>
+            <h2><i class="fas fa-search"></i> <span data-i18n="results.title">Find Programs</span></h2>
+            <p data-i18n="results.desc">Discover your perfect program at Chinese universities</p>
 
-            <div class="grid-3" style="margin-bottom: 24;">
+            <div class="grid-3" style="margin-bottom: 24px;">
                 <div>
-                    <label style="display: block; margin-bottom: 12; color: #333; font-weight: 600; font-size: 16;">Cities</label>
-                    <select multiple style="width: 100%; height: 180; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8; font-size: 14;">
-                        <option>ALL Cities</option>
-                        <option>Beijing</option>
-                        <option>Shanghai</option>
+                    <label style="display: block; margin-bottom: 12px; color: #374151; font-weight: 600;" data-i18n="filters.cities">Cities</label>
+                    <select id="city-select" multiple style="width: 100%; height: 140px; padding: 12px 16px; border: 2px solid #e5e9f0; border-radius: 16px;">
+                        <option value="ALL" data-i18n="filters.allCities">ALL Cities</option>
+                        <option value="Beijing">Beijing</option>
+                        <option value="Shanghai">Shanghai</option>
+                        <option value="Guangzhou">Guangzhou</option>
+                        <option value="Shenzhen">Shenzhen</option>
+                        <option value="Hangzhou">Hangzhou</option>
                     </select>
-                    <div style="font-size: 12; color: #888; margin-top: 4;">Hold Ctrl/Cmd to select multiple</div>
-                </div>
-                <div>
-                    <label style="display: block; margin-bottom: 12; color: #333; font-weight: 600; font-size: 16;">Fields</label>
-                    <select multiple style="width: 100%; height: 180; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8; font-size: 14;">
-                        <option>ALL Fields</option>
-                        <option>Artificial Intelligence</option>
-                        <option>Bioinformatics</option>
-                        <option>Computer Science</option>
-                        <option>Economics</option>
-                        <option>Finance</option>
-                        <option>Life Sciences</option>
-                        <option>Mechanical Engineering</option>
-                    </select>
-                    <div style="font-size: 12; color: #888; margin-top: 4;">Hold Ctrl/Cmd to select multiple</div>
+                    <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Hold Ctrl/Cmd to select multiple</div>
                 </div>
                 <div>
-                    <label style="display: block; margin-bottom: 12; color: #333; font-weight: 600; font-size: 16;">Sort By</label>
-                    <select style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8; font-size: 14; margin-bottom: 16;">
-                        <option>QS World Ranking</option>
-                        <option>China Ranking</option>
+                    <label style="display: block; margin-bottom: 12px; color: #374151; font-weight: 600;" data-i18n="filters.fields">Fields</label>
+                    <select id="field-select" multiple style="width: 100%; height: 140px; padding: 12px 16px; border: 2px solid #e5e9f0; border-radius: 16px;">
+                        <option value="ALL" data-i18n="filters.allFields">ALL Fields</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Business">Business & Economics</option>
+                        <option value="Language">Language & Culture</option>
                     </select>
-                    <button class="btn btn-primary" style="width: 100%;">Search Programs</button>
+                    <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Hold Ctrl/Cmd to select multiple</div>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 12px; color: #374151; font-weight: 600;" data-i18n="filters.sortBy">Sort By</label>
+                    <select id="sort-select" style="width: 100%; padding: 12px 16px; border: 2px solid #e5e9f0; border-radius: 16px; margin-bottom: 16px;">
+                        <option value="qs" data-i18n="filters.sortQS">QS World Ranking</option>
+                        <option value="cn" data-i18n="filters.sortCN">China Ranking</option>
+                    </select>
+                    <button id="search-programs-btn" class="btn btn-primary" style="width: 100%;"><i class="fas fa-search"></i> <span data-i18n="results.search">Search Programs</span></button>
                 </div>
             </div>
+        </div>
+        
+        <div id="llm-recommendations" class="card hidden">
+            <h2><i class="fas fa-robot"></i> <span data-i18n="results.ai">AI Recommendations</span></h2>
+            <div id="llm-recs-body" style="margin-top: 8px;"></div>
         </div>
 
-        <div class="program-card" onclick="showPage('detail', 'pku_bio_ms')">
-            <div class="program-header">
-                <div class="program-title">
-                    <h3>Peking University</h3>
-                    <div class="program-name">Master of Bioinformatics</div>
-                </div>
-                <div class="program-badge">View Details</div>
-            </div>
-            <div class="program-meta">
-                <span>📍 Beijing</span>
-                <span>🏆 QS #17</span>
-                <span>🎯 CN #2</span>
-            </div>
-            <div class="program-tags">
-                <span class="program-tag">Bioinformatics</span>
-                <span class="program-tag">Life Sciences</span>
-            </div>
-        </div>
-
-        <div class="program-card" onclick="showPage('detail', 'thu_cs_ms')">
-            <div class="program-header">
-                <div class="program-title">
-                    <h3>Tsinghua University</h3>
-                    <div class="program-name">Master of Computer Science</div>
-                </div>
-                <div class="program-badge">View Details</div>
-            </div>
-            <div class="program-meta">
-                <span>📍 Beijing</span>
-                <span>🏆 QS #25</span>
-                <span>🎯 CN #1</span>
-            </div>
-            <div class="program-tags">
-                <span class="program-tag">Computer Science</span>
-                <span class="program-tag">Artificial Intelligence</span>
-            </div>
-        </div>
-
-        <div class="program-card" onclick="showPage('detail', 'fudan_fin_ms')">
-            <div class="program-header">
-                <div class="program-title">
-                    <h3>Fudan University</h3>
-                    <div class="program-name">Master of Finance</div>
-                </div>
-                <div class="program-badge">View Details</div>
-            </div>
-            <div class="program-meta">
-                <span>📍 Shanghai</span>
-                <span>🏆 QS #44</span>
-                <span>🎯 CN #4</span>
-            </div>
-            <div class="program-tags">
-                <span class="program-tag">Finance</span>
-                <span class="program-tag">Economics</span>
-            </div>
-        </div>
-
-        <div class="program-card" onclick="showPage('detail', 'sjtu_me_ms')">
-            <div class="program-header">
-                <div class="program-title">
-                    <h3>Shanghai Jiao Tong University</h3>
-                    <div class="program-name">Master of Mechanical Engineering</div>
-                </div>
-                <div class="program-badge">View Details</div>
-            </div>
-            <div class="program-meta">
-                <span>📍 Shanghai</span>
-                <span>🏆 QS #50</span>
-                <span>🎯 CN #3</span>
-            </div>
-            <div class="program-tags">
-                <span class="program-tag">Mechanical Engineering</span>
-            </div>
-        </div>
+        <div id="programs-list"></div>
     </div>
 
     <div id="detail-page" class="container hidden">
-        <button class="back-btn" onclick="showPage('results')">← Back to Programs</button>
+        <button class="back-btn" onclick="showPage('results')"><i class="fas fa-arrow-left"></i> Back to Programs</button>
 
         <div class="detail-grid">
             <div>
-                <div class="card" style="margin-bottom: 24;">
-                    <h1 style="font-size: 32; margin-bottom: 8; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">Peking University</h1>
-                    <h2 style="font-size: 24; color: #667eea; font-weight: 700; margin-bottom: 16;">Master of Bioinformatics</h2>
-                    <div style="display: flex; gap: 24; font-size: 14; color: #666; margin-bottom: 16;">
-                        <span style="display: flex; align-items: center; gap: 6;">📍 <strong>Beijing</strong></span>
-                        <span style="display: flex; align-items: center; gap: 6;">🏆 QS Rank: <strong>17</strong></span>
-                        <span style="display: flex; align-items: center; gap: 6;">🎯 China Rank: <strong>2</strong></span>
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8;">
-                        <span class="field-tag">Bioinformatics</span>
-                        <span class="field-tag">Life Sciences</span>
-                    </div>
+                <div class="card" style="margin-bottom: 24px;">
+                    <h1 id="detail-university" style="font-size: 32px; margin-bottom: 8px;">Peking University</h1>
+                    <h2 id="detail-program" style="font-size: 24px; color: #3b82f6; margin-bottom: 16px;">Master of Bioinformatics</h2>
+                    <div id="detail-meta" style="display: flex; gap: 24px; font-size: 14px; color: #6b7280; margin-bottom: 16px;"></div>
+                    <div id="detail-tags" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
                 </div>
 
                 <div class="card">
-                    <h3 style="font-size: 24; margin-bottom: 24; color: #333; font-weight: 700; display: flex; align-items: center; gap: 8;">📋 Requirements</h3>
-                    <div class="requirement-box">
-                        <div class="requirement-label">GPA</div>
-                        <div class="requirement-value">Minimum 3.4</div>
-                    </div>
-                    <div class="requirement-box">
-                        <div class="requirement-label">TOEFL</div>
-                        <div class="requirement-value">Minimum 100</div>
-                    </div>
-                    <div class="requirement-box">
-                        <div class="requirement-label">IELTS</div>
-                        <div class="requirement-value">Minimum 7.0</div>
-                    </div>
-                    <div class="requirement-box">
-                        <div class="requirement-label">HSK</div>
-                        <div class="requirement-value">Not Required</div>
-                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 24px;"><i class="fas fa-clipboard-list"></i> Requirements</h3>
+                    <div id="detail-requirements"></div>
                 </div>
             </div>
 
             <div>
                 <div class="card sticky-sidebar">
-                    <h3 style="font-size: 20; margin-bottom: 20; color: #333; font-weight: 700; display: flex; align-items: center; gap: 8;">⚠️ Eligibility Check</h3>
-                    <div id="eligibility-loading" style="text-align: center; padding: 20;">
-                        <div style="font-size: 24;">⏳</div>
-                        <div style="color: #666; margin-top: 8;">Checking your eligibility...</div>
+                    <h3 style="font-size: 20px; margin-bottom: 20px;"><i class="fas fa-check-circle"></i> Eligibility Check</h3>
+                    <div id="eligibility-loading" style="text-align: center; padding: 20px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 32px; color: #3b82f6;"></i>
+                        <div style="color: #6b7280; margin-top: 8px;">Checking your eligibility...</div>
                     </div>
                     <div id="eligibility-success" class="success-box hidden">
-                        <div style="font-size: 48; margin-bottom: 8;">✅</div>
-                        <div style="font-size: 16; color: #10b981; font-weight: 700; margin-bottom: 4;">You are eligible to apply!</div>
-                        <div style="font-size: 14; color: #059669;">You meet all requirements for this program.</div>
+                        <div style="font-size: 48px; margin-bottom: 8px;">✅</div>
+                        <div style="font-size: 16px; color: #10b981; font-weight: 700;">You are eligible to apply!</div>
+                        <div style="font-size: 14px; color: #059669;">You meet all requirements for this program.</div>
                     </div>
                     <div id="eligibility-error" class="hidden">
-                        <div style="font-size: 16; color: #ef4444; font-weight: 700; margin-bottom: 16;">⚠️ Some requirements are not met</div>
                         <div id="missing-requirements-list"></div>
                     </div>
-                    <button id="check-eligibility-btn" class="btn btn-primary" style="width: 100%; margin-top: 16;" onclick="checkEligibility()">Check Eligibility</button>
+                    <button id="check-eligibility-btn" class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="checkEligibility()">
+                        <i class="fas fa-chart-line"></i> Check Eligibility
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="login-page" class="container hidden">
-        <div class="card" style="max-width: 480; margin: 0 auto;">
-            <h2 style="font-size: 32; margin-bottom: 8; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">Welcome Back</h2>
-            <p style="color: #888; margin-bottom: 32;">Sign in to continue your journey</p>
+        <div class="card" style="max-width: 480px; margin: 0 auto;">
+            <h2 style="font-size: 32px; margin-bottom: 8px;"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login.title">Welcome Back</span></h2>
+            <p style="color: #6b7280; margin-bottom: 32px;" data-i18n="login.subtitle">Sign in to continue your journey</p>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" placeholder="Enter your email">
@@ -686,17 +748,17 @@
                 <label>Password</label>
                 <input type="password" placeholder="Enter your password">
             </div>
-            <button class="btn btn-primary" style="width: 100%;">Sign In</button>
-            <p style="margin-top: 24; text-align: center; color: #666;">
-                Don't have an account? <a href="#" style="color: #667eea; font-weight: 600;" onclick="showPage('register')">Sign up</a>
+            <button id="login-btn" class="btn btn-primary" style="width: 100%;"><span data-i18n="login.signin">Sign In</span></button>
+            <p style="margin-top: 24px; text-align: center; color: #6b7280;">
+                <span data-i18n="login.noaccount">Don't have an account?</span> <a href="#" style="color: #3b82f6; font-weight: 600;" onclick="showPage('register')" data-i18n="login.signup">Sign up</a>
             </p>
         </div>
     </div>
 
     <div id="register-page" class="container hidden">
-        <div class="card" style="max-width: 480; margin: 0 auto;">
-            <h2 style="font-size: 32; margin-bottom: 8; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">Create Account</h2>
-            <p style="color: #888; margin-bottom: 32;">Start your journey to Chinese universities</p>
+        <div class="card" style="max-width: 480px; margin: 0 auto;">
+            <h2 style="font-size: 32px; margin-bottom: 8px;"><i class="fas fa-user-plus"></i> <span data-i18n="register.title">Create Account</span></h2>
+            <p style="color: #6b7280; margin-bottom: 32px;" data-i18n="register.subtitle">Start your journey to Chinese universities</p>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" placeholder="Enter your email">
@@ -713,19 +775,46 @@
                 <label>Confirm Password</label>
                 <input type="password" placeholder="Confirm your password">
             </div>
-            <button class="btn btn-primary" style="width: 100%;">Create Account</button>
-            <p style="margin-top: 24; text-align: center; color: #666;">
-                Already have an account? <a href="#" style="color: #667eea; font-weight: 600;" onclick="showPage('login')">Sign in</a>
+            <button id="register-btn" class="btn btn-primary" style="width: 100%;"><span data-i18n="register.submit">Create Account</span></button>
+            <p style="margin-top: 24px; text-align: center; color: #6b7280;">
+                <span data-i18n="register.haveAccount">Already have an account?</span> <a href="#" style="color: #3b82f6; font-weight: 600;" onclick="showPage('login')" data-i18n="register.signin">Sign in</a>
             </p>
         </div>
     </div>
 
+    <div id="admin-page" class="container hidden">
+        <div class="card">
+            <h2><i class="fas fa-database"></i> <span data-i18n="admin.title">Knowledge Base</span></h2>
+            <p data-i18n="admin.desc">Upload/replace database files (PDF/DOCX/TXT/XLSX) and reload index.</p>
+            <div id="llm-status" style="padding: 16px; margin-bottom: 16px; border: 2px solid #e5e9f0; border-radius: 16px;">
+                <div style="font-weight: 700; margin-bottom: 8px;">LLM Status</div>
+                <div id="llm-status-body" style="font-size: 13px; color: #6b7280;">Loading...</div>
+            </div>
+            <div class="upload-area" id="kb-upload-area">
+                <div class="upload-icon">📚</div>
+            <div class="upload-text" data-i18n="admin.selectFiles">Click to select knowledge files (multiple)</div>
+            <div class="upload-hint" data-i18n="admin.supported">Supported: PDF, DOCX, TXT, XLSX</div>
+            </div>
+            <div id="kb-selected" style="color: #6b7280; font-size: 12px; margin: 8px 0 12px 0;"></div>
+            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                <button id="kb-upload-btn" class="btn btn-primary" style="flex:1;"><i class="fas fa-upload"></i> <span data-i18n="admin.upload">Upload to DB</span></button>
+                <button id="kb-reload-btn" class="btn btn-secondary" style="flex:1;"><i class="fas fa-sync-alt"></i> <span data-i18n="admin.reload">Reload DB</span></button>
+                <button id="kb-refresh-btn" class="btn btn-secondary" style="flex:1;"><i class="fas fa-refresh"></i> <span data-i18n="admin.refresh">Refresh List</span></button>
+            </div>
+            <div id="kb-list" style="max-height: 360px; overflow: auto;"></div>
+        </div>
+    </div>
+
+    <div id="compare-page" class="container hidden">
+        <div class="card">
+            <h2><i class="fas fa-columns"></i> <span data-i18n="compare.title">Compare Favorites</span></h2>
+            <div id="compare-table" style="overflow:auto; margin-top: 12px;"></div>
+        </div>
+    </div>
+
     <script>
-        // 页面切换功能
-        let currentProgramId = null;
-        
         function showPage(page, programId = null) {
-            const pages = ['home', 'filters', 'results', 'detail', 'login', 'register'];
+            const pages = ['home', 'filters', 'results', 'detail', 'login', 'register', 'admin'];
             pages.forEach(p => {
                 const el = document.getElementById(p + '-page');
                 if (el) {
@@ -737,133 +826,20 @@
                 target.classList.remove('hidden');
             }
             
-            // 如果有programId，保存它并更新详情页面
             if (page === 'detail' && programId) {
                 currentProgramId = programId;
                 updateDetailPage(programId);
             }
-        }
-        
-        // 更新详情页面内容
-        function updateDetailPage(programId) {
-            // 根据programId更新详情页面的内容
-            const programData = {
-                'pku_bio_ms': {
-                    university: 'Peking University',
-                    name: 'Master of Bioinformatics',
-                    city: 'Beijing',
-                    qs_rank: 17,
-                    cn_rank: 2,
-                    fields: ['Bioinformatics', 'Life Sciences'],
-                    requirements: {
-                        gpa_min: 3.4,
-                        toefl_min: 100,
-                        ielts_min: 7.0,
-                        hsk_required: false
-                    }
-                },
-                'thu_cs_ms': {
-                    university: 'Tsinghua University',
-                    name: 'Master of Computer Science',
-                    city: 'Beijing',
-                    qs_rank: 25,
-                    cn_rank: 1,
-                    fields: ['Computer Science', 'Artificial Intelligence'],
-                    requirements: {
-                        gpa_min: 3.3,
-                        toefl_min: 95,
-                        ielts_min: 6.5,
-                        hsk_required: false
-                    }
-                },
-                'fudan_fin_ms': {
-                    university: 'Fudan University',
-                    name: 'Master of Finance',
-                    city: 'Shanghai',
-                    qs_rank: 44,
-                    cn_rank: 4,
-                    fields: ['Finance', 'Economics'],
-                    requirements: {
-                        gpa_min: 3.2,
-                        toefl_min: 95,
-                        ielts_min: 6.5,
-                        hsk_required: false
-                    }
-                },
-                'sjtu_me_ms': {
-                    university: 'Shanghai Jiao Tong University',
-                    name: 'Master of Mechanical Engineering',
-                    city: 'Shanghai',
-                    qs_rank: 50,
-                    cn_rank: 3,
-                    fields: ['Mechanical Engineering'],
-                    requirements: {
-                        gpa_min: 3.0,
-                        toefl_min: 90,
-                        ielts_min: 6.0,
-                        hsk_required: false
-                    }
-                }
-            };
             
-            const program = programData[programId];
-            if (program) {
-                // 更新大学信息
-                const detailPage = document.getElementById('detail-page');
-                const universityTitle = detailPage.querySelector('h1');
-                const programTitle = detailPage.querySelector('h2');
-                const citySpan = detailPage.querySelectorAll('span')[0];
-                const qsRankSpan = detailPage.querySelectorAll('span')[1];
-                const cnRankSpan = detailPage.querySelectorAll('span')[2];
-                const fieldTags = detailPage.querySelectorAll('.field-tag');
-                
-                universityTitle.textContent = program.university;
-                programTitle.textContent = program.name;
-                citySpan.innerHTML = `📍 <strong>${program.city}</strong>`;
-                qsRankSpan.innerHTML = `🏆 QS Rank: <strong>${program.qs_rank}</strong>`;
-                cnRankSpan.innerHTML = `🎯 China Rank: <strong>${program.cn_rank}</strong>`;
-                
-                // 更新专业标签
-                fieldTags.forEach((tag, index) => {
-                    if (program.fields[index]) {
-                        tag.textContent = program.fields[index];
-                    }
-                });
-                
-                // 更新要求显示
-                const reqBoxes = detailPage.querySelectorAll('.requirement-box');
-                const reqLabels = detailPage.querySelectorAll('.requirement-label');
-                const reqValues = detailPage.querySelectorAll('.requirement-value');
-                
-                reqLabels[0].textContent = 'GPA';
-                reqValues[0].textContent = `Minimum ${program.requirements.gpa_min}`;
-                
-                reqLabels[1].textContent = 'TOEFL';
-                reqValues[1].textContent = `Minimum ${program.requirements.toefl_min}`;
-                
-                reqLabels[2].textContent = 'IELTS';
-                reqValues[2].textContent = `Minimum ${program.requirements.ielts_min}`;
-                
-                reqLabels[3].textContent = 'HSK';
-                reqValues[3].textContent = program.requirements.hsk_required ? 'Required' : 'Not Required';
-                
-                // 重置资格检查状态
-                const loadingEl = document.getElementById('eligibility-loading');
-                const successEl = document.getElementById('eligibility-success');
-                const errorEl = document.getElementById('eligibility-error');
-                const missingListEl = document.getElementById('missing-requirements-list');
-                const checkBtn = document.getElementById('check-eligibility-btn');
-                
-                loadingEl.classList.remove('hidden');
-                successEl.classList.add('hidden');
-                errorEl.classList.add('hidden');
-                missingListEl.innerHTML = '';
-                checkBtn.disabled = false;
-                checkBtn.textContent = 'Check Eligibility';
-            }
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 本地存储功能
+        let currentProgramId = null;
+        let selectedCVFile = null;
+        let selectedCVFiles = [];
+
+        // 保存用户画像
         function saveUserProfile(profile) {
             localStorage.setItem('userProfile', JSON.stringify(profile));
         }
@@ -882,394 +858,590 @@
             return user ? JSON.parse(user) : null;
         }
 
-        // 模拟API调用
-        function simulateAPIResponse(data, delay = 500) {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    resolve(data);
-                }, delay);
-            });
+        // 保存并跳转
+        function saveProfileAndContinue() {
+            const profile = {
+                gpa: document.getElementById('profile-gpa')?.value || '',
+                toefl: document.getElementById('profile-toefl')?.value || '',
+                ielts: document.getElementById('profile-ielts')?.value || '',
+                hsk: document.getElementById('profile-hsk')?.value || ''
+            };
+            saveUserProfile(profile);
+            showPage('results');
         }
 
-        // 从CV提取信息
-        function extractInformationFromCV() {
-            // 获取CV文本
-            const cvText = document.querySelector('textarea[placeholder="Paste your CV content here..."]').value;
-            
-            if (!cvText.trim()) {
-                alert('Please paste your CV content first or upload a file.');
-                return;
-            }
-            
-            // 显示加载状态
-            const extractBtn = document.querySelector('button:contains("Extract Information from CV")') || 
-                             Array.from(document.querySelectorAll('.btn-primary')).find(btn => btn.textContent.includes('Extract Information from CV'));
-            
-            if (extractBtn) {
-                extractBtn.disabled = true;
-                extractBtn.textContent = 'Analyzing with AI...';
-            }
-            
-            // 使用Minimax API进行AI分析
-            analyzeWithMinimax(cvText)
-            .then(response => {
-                if (response.success) {
-                    const info = response.extracted_info;
-                    
-                    // 填充提取的信息到表单
-                    const gpaInput = document.querySelector('input[placeholder="e.g., 3.5"]');
-                    const toeflInput = document.querySelector('input[placeholder="e.g., 90"]');
-                    const ieltsInput = document.querySelector('input[placeholder="e.g., 6.5"]');
-                    const hskInput = document.querySelector('input[placeholder="e.g., 5"]');
-                    
-                    if (gpaInput) gpaInput.value = info.gpa || '';
-                    if (toeflInput) toeflInput.value = info.toefl || '';
-                    if (ieltsInput) ieltsInput.value = info.ielts || '';
-                    if (hskInput) hskInput.value = info.hsk || '';
-                    
-                    alert('Information extracted successfully! Please review and adjust if needed.');
-                }
-            })
-            .catch(error => {
-                console.error('Error extracting information:', error);
-                alert('Error extracting information. Please try again.');
-            })
-            .finally(() => {
-                if (extractBtn) {
-                    extractBtn.disabled = false;
-                    extractBtn.textContent = 'Extract Information from CV';
-                }
-            });
-        }
-
-        // 使用Minimax API分析CV
-        function analyzeWithMinimax(cvText) {
-            const API_KEY = 'sk-cp-Lu9JWR482c3gT4Vl1-dRpxm07gXvpX1PThgvLqZ3K56mEpmwR4AIXNPeq0SWahuXImC50Zyfs-_MkDIgTFgql5wHkN19fy2u9xAiI3B8bVCqXQJRyhTPfxw';
-            const API_URL = 'https://api.minimax.chat/v1/text/chatcompletions';
-            
-            const prompt = `请从以下简历内容中提取以下信息：
-1. GPA成绩（如果有）
-2. TOEFL分数（如果有）
-3. IELTS分数（如果有）
-4. HSK等级（如果有）
-
-请以JSON格式返回，键名为：gpa, toefl, ielts, hsk
-如果某项信息不存在，请返回空字符串
-
-简历内容：
-${cvText}`;
-            
-            return fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_KEY}`
+        // 更新详情页面
+        function updateDetailPage(programId) {
+            const programData = {
+                'pku_bio_ms': {
+                    university: 'Peking University',
+                    name: 'Master of Bioinformatics',
+                    city: 'Beijing',
+                    qs_rank: 17,
+                    cn_rank: 2,
+                    fields: ['Bioinformatics', 'Life Sciences'],
+                    requirements: { gpa_min: 3.4, toefl_min: 100, ielts_min: 7.0, hsk_required: false }
                 },
-                body: JSON.stringify({
-                    model: 'abab6.5-chat',
-                    messages: [{
-                        role: 'user',
-                        content: prompt
-                    }],
-                    temperature: 0.1,
-                    max_tokens: 500
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.choices && data.choices[0] && data.choices[0].message) {
-                    const content = data.choices[0].message.content;
-                    try {
-                        // 提取JSON部分
-                        const jsonMatch = content.match(/\{[\s\S]*\}/);
-                        if (jsonMatch) {
-                            const extractedInfo = JSON.parse(jsonMatch[0]);
-                            return {
-                                success: true,
-                                extracted_info: extractedInfo
-                            };
-                        } else {
-                            throw new Error('No JSON found in response');
-                        }
-                    } catch (error) {
-                        console.error('Error parsing response:', error);
-                        // 失败时返回模拟数据
-                        return {
-                            success: true,
-                            extracted_info: {
-                                gpa: '3.5',
-                                toefl: '95',
-                                ielts: '6.5',
-                                hsk: '5'
-                            }
-                        };
-                    }
-                } else {
-                    throw new Error('Invalid API response');
+                'thu_cs_ms': {
+                    university: 'Tsinghua University',
+                    name: 'Master of Computer Science',
+                    city: 'Beijing',
+                    qs_rank: 25,
+                    cn_rank: 1,
+                    fields: ['Computer Science', 'Artificial Intelligence'],
+                    requirements: { gpa_min: 3.3, toefl_min: 95, ielts_min: 6.5, hsk_required: false }
                 }
-            })
-            .catch(error => {
-                console.error('API Error:', error);
-                // API调用失败时返回模拟数据
-                return {
-                    success: true,
-                    extracted_info: {
-                        gpa: '3.5',
-                        toefl: '95',
-                        ielts: '6.5',
-                        hsk: '5'
-                    }
-                };
-            });
-        }
-
-        // 表单提交处理
-        document.addEventListener('DOMContentLoaded', function() {
-            // 登录表单处理
-            const loginForm = document.querySelector('#login-page .card');
-            if (loginForm) {
-                const loginBtn = loginForm.querySelector('.btn-primary');
-                loginBtn.addEventListener('click', function() {
-                    const email = loginForm.querySelector('input[type="email"]').value;
-                    const password = loginForm.querySelector('input[type="password"]').value;
-                    
-                    if (email && password) {
-                        simulateAPIResponse({ success: true, user: { email, username: email.split('@')[0] } })
-                            .then(response => {
-                                if (response.success) {
-                                    saveUser(response.user);
-                                    showPage('home');
-                                    alert('Login successful!');
-                                }
-                            });
-                    } else {
-                        alert('Please fill in all fields');
-                    }
-                });
-            }
-
-            // 注册表单处理
-            const registerForm = document.querySelector('#register-page .card');
-            if (registerForm) {
-                const registerBtn = registerForm.querySelector('.btn-primary');
-                registerBtn.addEventListener('click', function() {
-                    const email = registerForm.querySelector('input[type="email"]').value;
-                    const username = registerForm.querySelectorAll('input[type="text"]')[0].value;
-                    const password = registerForm.querySelectorAll('input[type="password"]')[0].value;
-                    const confirmPassword = registerForm.querySelectorAll('input[type="password"]')[1].value;
-                    
-                    if (email && username && password && confirmPassword) {
-                        if (password === confirmPassword) {
-                            simulateAPIResponse({ success: true, user: { email, username } })
-                                .then(response => {
-                                    if (response.success) {
-                                        saveUser(response.user);
-                                        showPage('home');
-                                        alert('Registration successful!');
-                                    }
-                                });
-                        } else {
-                            alert('Passwords do not match');
-                        }
-                    } else {
-                        alert('Please fill in all fields');
-                    }
-                });
-            }
-
-            // 过滤器表单处理
-            const filtersForm = document.querySelector('#filters-page');
-            if (filtersForm) {
-                const continueBtn = filtersForm.querySelector('.btn-primary:last-child');
-                continueBtn.addEventListener('click', function() {
-                    const gpa = filtersForm.querySelector('input[placeholder="e.g., 3.5"]').value;
-                    const toefl = filtersForm.querySelector('input[placeholder="e.g., 90"]').value;
-                    const ielts = filtersForm.querySelector('input[placeholder="e.g., 6.5"]').value;
-                    const hsk = filtersForm.querySelector('input[placeholder="e.g., 5"]').value;
-                    
-                    const profile = {
-                        gpa: gpa,
-                        toefl: toefl,
-                        ielts: ielts,
-                        hsk: hsk
-                    };
-                    
-                    saveUserProfile(profile);
-                    showPage('results');
-                });
-            }
-
-            // 搜索按钮处理
-            const resultsPage = document.querySelector('#results-page');
-            if (resultsPage) {
-                const searchBtn = resultsPage.querySelector('.btn-primary');
-                searchBtn.addEventListener('click', function() {
-                    // 模拟搜索结果
-                    alert('Searching for programs...');
-                    simulateAPIResponse({ success: true })
-                        .then(() => {
-                            alert('Search completed!');
-                        });
-                });
-            }
-
-            // 上传区域处理
-            const uploadArea = document.querySelector('.upload-area');
-            if (uploadArea) {
-                uploadArea.addEventListener('click', function() {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = '.pdf,.txt';
-                    input.click();
-                    
-                    input.addEventListener('change', function(e) {
-                        if (e.target.files.length > 0) {
-                            alert('File uploaded successfully!');
-                        }
-                    });
-                });
-            }
-
-            // 提取信息按钮处理
-            const extractBtn = document.querySelector('button:contains("Extract Information from CV")');
-            if (!extractBtn) {
-                // 尝试另一种选择方式
-                const allButtons = document.querySelectorAll('.btn-primary');
-                allButtons.forEach(btn => {
-                    if (btn.textContent.includes('Extract Information from CV')) {
-                        extractBtn = btn;
-                    }
-                });
-            }
+            };
             
-            if (extractBtn) {
-                extractBtn.addEventListener('click', function() {
-                    extractInformationFromCV();
-                });
-            }
-
-            // 检查用户登录状态
-            const currentUser = getCurrentUser();
-            if (currentUser) {
-                const navRight = document.querySelector('.nav-right');
-                if (navRight) {
-                    navRight.innerHTML = `
-                        <span style="color: white; font-weight: 500;">Welcome, ${currentUser.username}</span>
-                        <a href="#" class="nav-link" onclick="logout()">Logout</a>
-                    `;
-                }
-            }
-        });
-
-        // 登出功能
-        function logout() {
-            localStorage.removeItem('currentUser');
-            window.location.reload();
+            const program = programData[programId] || programData['pku_bio_ms'];
+            
+            document.getElementById('detail-university').textContent = program.university;
+            document.getElementById('detail-program').textContent = program.name;
+            
+            const metaHtml = `
+                <span><i class="fas fa-map-marker-alt"></i> ${program.city}</span>
+                <span><i class="fas fa-trophy"></i> QS #${program.qs_rank}</span>
+                <span><i class="fas fa-chart-line"></i> China #${program.cn_rank}</span>
+            `;
+            document.getElementById('detail-meta').innerHTML = metaHtml;
+            
+            const tagsHtml = program.fields.map(f => `<span class="field-tag">${f}</span>`).join('');
+            document.getElementById('detail-tags').innerHTML = tagsHtml;
+            
+            const reqHtml = `
+                <div class="requirement-box"><div class="requirement-label">GPA</div><div class="requirement-value">Minimum ${program.requirements.gpa_min}</div></div>
+                <div class="requirement-box"><div class="requirement-label">TOEFL</div><div class="requirement-value">Minimum ${program.requirements.toefl_min}</div></div>
+                <div class="requirement-box"><div class="requirement-label">IELTS</div><div class="requirement-value">Minimum ${program.requirements.ielts_min}</div></div>
+                <div class="requirement-box"><div class="requirement-label">HSK</div><div class="requirement-value">${program.requirements.hsk_required ? 'Required' : 'Not Required'}</div></div>
+            `;
+            document.getElementById('detail-requirements').innerHTML = reqHtml;
+            
+            // 重置资格检查
+            document.getElementById('eligibility-loading').classList.add('hidden');
+            document.getElementById('eligibility-success').classList.add('hidden');
+            document.getElementById('eligibility-error').classList.add('hidden');
         }
 
-        // 检查申请资格
         function checkEligibility() {
             const profile = getUserProfile();
             if (!profile) {
-                alert('Please complete your profile first by going to the Apply page.');
+                alert('Please complete your profile first.');
                 showPage('filters');
                 return;
             }
-
-            const loadingEl = document.getElementById('eligibility-loading');
-            const successEl = document.getElementById('eligibility-success');
-            const errorEl = document.getElementById('eligibility-error');
-            const missingListEl = document.getElementById('missing-requirements-list');
-            const checkBtn = document.getElementById('check-eligibility-btn');
-
-            // 显示加载状态
-            loadingEl.classList.remove('hidden');
-            successEl.classList.add('hidden');
-            errorEl.classList.add('hidden');
-            checkBtn.disabled = true;
-            checkBtn.textContent = 'Checking...';
-
-            // 使用当前程序ID
-            const programId = currentProgramId || 'pku_bio_ms';
-            const apiUrl = `http://localhost:8000/api/programs/${programId}/compare`;
             
-            // 使用模拟数据，实际应该调用API
-            simulateAPIResponse({
-                is_eligible: false,
-                missing_requirements: [
-                    {
-                        type: 'gpa',
-                        message: 'Your GPA: 3.0 | Required: 3.4',
-                        required: 'Minimum GPA: 3.4',
-                        user_value: '3.0'
-                    },
-                    {
-                        type: 'toefl',
-                        message: 'Your TOEFL: 85 | Required: 100',
-                        required: 'Minimum TOEFL: 100',
-                        user_value: '85'
-                    }
-                ],
-                program_info: {
-                    id: programId,
-                    name: 'Master of Bioinformatics',
-                    university: 'Peking University',
-                    requirements: {
-                        gpa_min: 3.4,
-                        toefl_min: 100,
-                        ielts_min: 7.0,
-                        hsk_required: false
-                    }
-                }
-            }, 1000)
-            .then(response => {
-                // 隐藏加载状态
-                loadingEl.classList.add('hidden');
-                checkBtn.disabled = false;
-                checkBtn.textContent = 'Check Eligibility';
-
-                if (response.is_eligible) {
-                    // 显示成功状态
+            document.getElementById('eligibility-loading').classList.remove('hidden');
+            document.getElementById('eligibility-success').classList.add('hidden');
+            document.getElementById('eligibility-error').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('eligibility-loading').classList.add('hidden');
+                const successEl = document.getElementById('eligibility-success');
+                const errorEl = document.getElementById('eligibility-error');
+                const missingList = document.getElementById('missing-requirements-list');
+                
+                const gpa = parseFloat(profile.gpa) || 0;
+                if (gpa >= 3.4) {
                     successEl.classList.remove('hidden');
                     errorEl.classList.add('hidden');
                 } else {
-                    // 显示缺失要求
                     successEl.classList.add('hidden');
                     errorEl.classList.remove('hidden');
-                    
-                    // 清空并重新生成缺失要求列表
-                    missingListEl.innerHTML = '';
-                    
-                    response.missing_requirements.forEach(req => {
-                        const reqItem = document.createElement('div');
-                        reqItem.className = 'missing-requirement-item';
-                        
-                        const icon = req.type === 'gpa' ? '📊' : 
-                                   req.type === 'toefl' ? '📝' :
-                                   req.type === 'ielts' ? '📝' :
-                                   req.type === 'hsk' ? '🇨🇳' : '⚠️';
-                        
-                        reqItem.innerHTML = `
-                            <div class="missing-requirement-title">${icon} ${req.type.toUpperCase()} Requirement Not Met</div>
-                            <div class="missing-requirement-detail">${req.message}</div>
-                            <div class="missing-requirement-comparison">
-                                <strong>Required:</strong> ${req.required}<br>
-                                <strong>Your Value:</strong> ${req.user_value}
-                            </div>
-                        `;
-                        
-                        missingListEl.appendChild(reqItem);
-                    });
+                    missingList.innerHTML = `
+                        <div class="missing-requirement-item">
+                            <div class="missing-requirement-title">📊 GPA Requirement Not Met</div>
+                            <div>Your GPA: ${gpa} | Required: 3.4</div>
+                        </div>
+                    `;
                 }
-            })
-            .catch(error => {
-                console.error('Error checking eligibility:', error);
-                loadingEl.classList.add('hidden');
-                checkBtn.disabled = false;
-                checkBtn.textContent = 'Check Eligibility';
-                alert('Error checking eligibility. Please try again.');
-            });
+            }, 1000);
         }
+
+        // 初始化所有事件监听
+        document.addEventListener('DOMContentLoaded', function() {
+            // 示例：加载sample CV列表
+            fetch('/api/cv/samples')
+                .then(r => r.json())
+                .then(data => {
+                    const select = document.getElementById('sample-cv-select');
+                    if (select && data.files) {
+                        data.files.forEach(f => {
+                            const opt = document.createElement('option');
+                            opt.value = f.name;
+                            opt.textContent = f.name;
+                            select.appendChild(opt);
+                        });
+                    }
+                })
+                .catch(() => {});
+            
+            // 上传区域
+            const uploadArea = document.getElementById('upload-area');
+            if (uploadArea) {
+                let fileInput = null;
+                uploadArea.addEventListener('click', function() {
+                    if (!fileInput) {
+                        fileInput = document.createElement('input');
+                        fileInput.type = 'file';
+                        fileInput.accept = '.pdf,.txt,.docx';
+                        fileInput.style.display = 'none';
+                        document.body.appendChild(fileInput);
+                        fileInput.addEventListener('change', function(e) {
+                            if (e.target.files.length) {
+                                selectedCVFile = e.target.files[0];
+                                const nameEl = document.getElementById('selected-file-name');
+                                if (nameEl) nameEl.textContent = 'Selected: ' + selectedCVFile.name;
+                            }
+                        });
+                    }
+                    fileInput.click();
+                });
+            }
+            
+            // 提取按钮
+            const extractBtn = document.getElementById('extract-from-file-btn');
+            if (extractBtn) {
+                extractBtn.addEventListener('click', function() {
+                    if (!selectedCVFile) {
+                        alert('Please upload a CV file first.');
+                        return;
+                    }
+                    const fd = new FormData();
+                    fd.append('file', selectedCVFile);
+                    fetch('/api/cv/extract', { method: 'POST', body: fd })
+                        .then(r => r.json())
+                        .then(data => {
+                            const info = data.profile || {};
+                            if (document.getElementById('profile-gpa')) document.getElementById('profile-gpa').value = info.gpa || '';
+                            if (document.getElementById('profile-toefl')) document.getElementById('profile-toefl').value = info.toefl || '';
+                            if (document.getElementById('profile-ielts')) document.getElementById('profile-ielts').value = info.ielts || '';
+                            if (document.getElementById('profile-hsk')) document.getElementById('profile-hsk').value = info.hsk || '';
+                            alert('Information extracted successfully!');
+                        })
+                        .catch(() => alert('Extraction failed.'));
+                });
+            }
+            
+            // 文本提取
+            const textExtractBtn = document.getElementById('extract-from-text-btn');
+            if (textExtractBtn) {
+                textExtractBtn.addEventListener('click', function() {
+                    const text = document.getElementById('cv-textarea')?.value;
+                    if (!text) {
+                        alert('Please paste CV text first.');
+                        return;
+                    }
+                    fetch('/api/cv/extract_text', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: text })
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        const info = data.profile || {};
+                        if (document.getElementById('profile-gpa')) document.getElementById('profile-gpa').value = info.gpa || '';
+                        if (document.getElementById('profile-toefl')) document.getElementById('profile-toefl').value = info.toefl || '';
+                        if (document.getElementById('profile-ielts')) document.getElementById('profile-ielts').value = info.ielts || '';
+                        if (document.getElementById('profile-hsk')) document.getElementById('profile-hsk').value = info.hsk || '';
+                        alert('Information extracted successfully!');
+                    })
+                    .catch(() => alert('Extraction failed.'));
+                });
+            }
+            
+            // 搜索按钮
+            const searchBtn = document.getElementById('search-programs-btn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    const profile = getUserProfile();
+                    if (!profile) {
+                        alert('Please complete your profile first.');
+                        showPage('filters');
+                        return;
+                    }
+                    
+                    searchBtn.disabled = true;
+                    searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+                    
+                    const locale = localStorage.getItem('locale') || 'en';
+                    fetch('/api/recommend', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ profile: profile, top_k: 5, locale: locale })
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        const recs = data.recommendations || [];
+                        const container = document.getElementById('programs-list');
+                        if (container) {
+                            container.innerHTML = '';
+                            recs.forEach(prog => {
+                                const card = document.createElement('div');
+                                card.className = 'program-card';
+                                    card.onclick = () => showPage('detail', prog.id);
+                                card.innerHTML = `
+                                    <div class="program-header">
+                                        <div class="program-title">
+                                            <h3>${prog.university || prog.name}</h3>
+                                            <div class="program-name">${prog.name || ''}</div>
+                                        </div>
+                                            <div style="display:flex; gap:8px; align-items:center;">
+                                                <button class="btn btn-secondary" data-fav="${prog.id}" style="padding:6px 10px;"><i class="fas fa-heart"></i> Favorite</button>
+                                                <div class="program-badge">${prog.is_eligible ? 'Eligible' : 'Review'}</div>
+                                            </div>
+                                    </div>
+                                    <div class="program-meta">
+                                        <span><i class="fas fa-map-marker-alt"></i> ${prog.city || 'Beijing'}</span>
+                                        ${prog.qs_rank ? `<span><i class="fas fa-trophy"></i> QS #${prog.qs_rank}</span>` : ''}
+                                    </div>
+                                    <div class="program-tags">
+                                        ${(prog.fields || []).map(f => `<span class="program-tag">${f}</span>`).join('')}
+                                    </div>
+                                `;
+                                container.appendChild(card);
+                                    const favBtn = card.querySelector('button[data-fav]');
+                                    if (favBtn) {
+                                        favBtn.addEventListener('click', function(e) {
+                                            e.stopPropagation();
+                                            const id = favBtn.getAttribute('data-fav');
+                                            toggleFavorite(id);
+                                        });
+                                    }
+                            });
+                        }
+                        
+                        // 显示 AI 推荐
+                        const llmCard = document.getElementById('llm-recommendations');
+                        const llmBody = document.getElementById('llm-recs-body');
+                        if (llmCard && llmBody) {
+                            llmBody.innerHTML = '';
+                            if (data.llm_json && data.llm_json.recommendations && data.llm_json.recommendations.length) {
+                                let html = '';
+                                data.llm_json.recommendations.forEach(rec => {
+                                    const title = rec.university_name || rec.university_id || 'Recommendation';
+                                    const reasons = (rec.match_analysis ? [rec.match_analysis] : []).concat(rec.strengths || []);
+                                    const toConfirm = (rec.weaknesses || []).concat(rec.improvement_suggestions || []);
+                                    html += `
+                                        <div class="program-card">
+                                            <div class="program-header">
+                                                <div class="program-title">
+                                                    <h3>${title}</h3>
+                                                    <div class="program-name">${(rec.recommended_majors || []).join(', ')}</div>
+                                                </div>
+                                                <div class="program-badge">${typeof rec.match_score === 'number' ? rec.match_score + '%' : 'AI'}</div>
+                                            </div>
+                                            <div style="font-size:14px; color:#333;">
+                                                ${reasons.length ? `<div style="margin-bottom:8px;"><strong>Reasons:</strong><ul style="margin-left:16px;">${reasons.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
+                                                ${toConfirm.length ? `<div style="margin-bottom:8px; color:#dc2626;"><strong>To Confirm:</strong><ul style="margin-left:16px;">${toConfirm.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
+                                                ${(rec.scholarship_opportunities && rec.scholarship_opportunities.length) ? `<div style="margin-bottom:8px; color:#059669;"><strong>Scholarships:</strong> ${rec.scholarship_opportunities.join(', ')}</div>` : ''}
+                                                ${rec.application_deadline ? `<div style="margin-bottom:8px;"><strong>Deadline:</strong> ${rec.application_deadline}</div>` : ''}
+                                            </div>
+                                        </div>
+                                    `;
+                                });
+                                if (data.llm_json.overall_advice) {
+                                    html += `<div class="requirement-box"><div class="requirement-label">Overall Advice</div><div class="requirement-value" style="font-size:16px;">${data.llm_json.overall_advice}</div></div>`;
+                                }
+                                if (data.llm_json.next_steps && data.llm_json.next_steps.length) {
+                                    html += `<div class="requirement-box"><div class="requirement-label">Next Steps</div><div style="color:#374151; font-size:14px;"><ul style="margin-left:16px;">${data.llm_json.next_steps.map(s => `<li>${s}</li>`).join('')}</ul></div></div>`;
+                                }
+                                llmBody.innerHTML = html;
+                                llmCard.classList.remove('hidden');
+                            } else if (data.llm_analysis) {
+                                llmBody.innerHTML = '<pre style="white-space:pre-wrap;">' + data.llm_analysis + '</pre>';
+                                llmCard.classList.remove('hidden');
+                            } else {
+                                llmCard.classList.add('hidden');
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Failed to fetch recommendations.');
+                    })
+                    .finally(() => {
+                        searchBtn.disabled = false;
+                        searchBtn.innerHTML = '<i class="fas fa-search"></i> Search Programs';
+                    });
+                });
+            }
+            
+            // Admin 显示开关（URL ?admin=1 或本地存储 admin=1；快捷键 Alt+A 切换）
+            const adminLink = document.getElementById('admin-nav-link');
+            const compareLink = document.getElementById('compare-nav-link');
+            if (adminLink) {
+                const current = getCurrentUser();
+                adminLink.style.display = (current && current.is_admin) ? 'inline-flex' : 'none';
+            }
+            if (compareLink) {
+                const current = getCurrentUser();
+                compareLink.style.display = current ? 'inline-flex' : 'none';
+            }
+            
+            const i18n = {
+                en: {
+                    "nav.home": "Home",
+                    "nav.apply": "Apply",
+                    "nav.compare": "Compare",
+                    "auth.login": "Login",
+                    "auth.register": "Register",
+                    "hero.title": "SinoScholar",
+                    "hero.tagline": "Your Gateway to Chinese Universities",
+                    "hero.mission": "We help Indonesian students discover and apply to top Chinese universities. Upload your CV, let AI analyze your profile, and find the perfect program for you.",
+                    "hero.ctaStart": "Start Your Journey",
+                    "hero.ctaRegister": "Create Account",
+                    "apply.uploadTitle": "Upload Your CV",
+                    "apply.uploadDesc": "Let AI analyze your profile and find best programs for you",
+                    "apply.uploadClick": "Click to upload or drag and drop",
+                    "apply.supported": "Supported: PDF, DOCX, TXT",
+                    "apply.batchExtract": "Batch Extract (Minimax)",
+                    "apply.extractFile": "Extract Information from CV",
+                    "apply.or": "OR",
+                    "apply.pasteTitle": "Paste Your CV Text",
+                    "apply.pastePlaceholder": "Paste your CV content here...",
+                    "apply.extractText": "Extract Information from Text",
+                    "apply.profile": "Your Profile",
+                    "profile.gpa": "GPA",
+                    "profile.toefl": "TOEFL Score",
+                    "profile.ielts": "IELTS Score",
+                    "profile.hsk": "HSK Level",
+                    "apply.continue": "Continue to Find Programs",
+                    "results.title": "Find Programs",
+                    "results.desc": "Discover your perfect program at Chinese universities",
+                    "filters.cities": "Cities",
+                    "filters.allCities": "ALL Cities",
+                    "filters.fields": "Fields",
+                    "filters.allFields": "ALL Fields",
+                    "filters.sortBy": "Sort By",
+                    "filters.sortQS": "QS World Ranking",
+                    "filters.sortCN": "China Ranking",
+                    "results.search": "Search Programs",
+                    "results.ai": "AI Recommendations",
+                    "login.title": "Welcome Back",
+                    "login.subtitle": "Sign in to continue your journey",
+                    "login.signin": "Sign In",
+                    "login.noaccount": "Don't have an account?",
+                    "login.signup": "Sign up",
+                    "register.title": "Create Account",
+                    "register.subtitle": "Start your journey to Chinese universities",
+                    "register.submit": "Create Account",
+                    "register.haveAccount": "Already have an account?",
+                    "register.signin": "Sign in",
+                    "admin.title": "Knowledge Base",
+                    "admin.desc": "Upload/replace database files (PDF/DOCX/TXT/XLSX) and reload index.",
+                    "admin.selectFiles": "Click to select knowledge files (multiple)",
+                    "admin.supported": "Supported: PDF, DOCX, TXT, XLSX",
+                    "admin.upload": "Upload to DB",
+                    "admin.reload": "Reload DB",
+                    "admin.refresh": "Refresh List"
+                },
+                id: {
+                    "nav.home": "Beranda",
+                    "nav.apply": "Ajukan",
+                    "nav.compare": "Bandingkan",
+                    "auth.login": "Masuk",
+                    "auth.register": "Daftar",
+                    "hero.title": "SinoScholar",
+                    "hero.tagline": "Gerbang Anda ke Universitas Tiongkok",
+                    "hero.mission": "Kami membantu siswa Indonesia menemukan dan mendaftar ke universitas unggulan di Tiongkok. Unggah CV Anda, biarkan AI menganalisis profil Anda, dan temukan program yang paling cocok untuk Anda.",
+                    "hero.ctaStart": "Mulai Perjalanan Anda",
+                    "hero.ctaRegister": "Buat Akun",
+                    "apply.uploadTitle": "Unggah CV Anda",
+                    "apply.uploadDesc": "Biarkan AI menganalisis profil Anda dan temukan program terbaik",
+                    "apply.uploadClick": "Klik untuk unggah atau tarik dan letakkan",
+                    "apply.supported": "Didukung: PDF, DOCX, TXT",
+                    "apply.batchExtract": "Ekstrak Batch (Minimax)",
+                    "apply.extractFile": "Ekstrak Informasi dari CV",
+                    "apply.or": "ATAU",
+                    "apply.pasteTitle": "Tempel Teks CV Anda",
+                    "apply.pastePlaceholder": "Tempel konten CV Anda di sini...",
+                    "apply.extractText": "Ekstrak Informasi dari Teks",
+                    "apply.profile": "Profil Anda",
+                    "profile.gpa": "GPA",
+                    "profile.toefl": "Skor TOEFL",
+                    "profile.ielts": "Skor IELTS",
+                    "profile.hsk": "Level HSK",
+                    "apply.continue": "Lanjutkan untuk Mencari Program",
+                    "results.title": "Cari Program",
+                    "results.desc": "Temukan program terbaik di universitas Tiongkok",
+                    "filters.cities": "Kota",
+                    "filters.allCities": "SEMUA Kota",
+                    "filters.fields": "Bidang",
+                    "filters.allFields": "SEMUA Bidang",
+                    "filters.sortBy": "Urutkan Berdasarkan",
+                    "filters.sortQS": "Peringkat Dunia QS",
+                    "filters.sortCN": "Peringkat China",
+                    "results.search": "Cari Program",
+                    "results.ai": "Rekomendasi AI",
+                    "login.title": "Selamat Datang Kembali",
+                    "login.subtitle": "Masuk untuk melanjutkan",
+                    "login.signin": "Masuk",
+                    "login.noaccount": "Belum punya akun?",
+                    "login.signup": "Daftar",
+                    "register.title": "Buat Akun",
+                    "register.subtitle": "Mulai perjalanan Anda ke universitas Tiongkok",
+                    "register.submit": "Buat Akun",
+                    "register.haveAccount": "Sudah punya akun?",
+                    "register.signin": "Masuk",
+                    "admin.title": "Basis Pengetahuan",
+                    "admin.desc": "Unggah/ganti file database (PDF/DOCX/TXT/XLSX) dan muat ulang indeks.",
+                    "admin.selectFiles": "Klik untuk memilih file pengetahuan (banyak)",
+                    "admin.supported": "Didukung: PDF, DOCX, TXT, XLSX",
+                    "admin.upload": "Unggah ke DB",
+                    "admin.reload": "Muat Ulang DB",
+                    "admin.refresh": "Segarkan Daftar"
+                }
+            };
+            function applyI18n(locale) {
+                const dict = i18n[locale] || i18n.en;
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) el.textContent = dict[key];
+                });
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-placeholder');
+                    if (dict[key]) el.setAttribute('placeholder', dict[key]);
+                });
+                document.title = 'SinoScholar - ' + (dict['hero.tagline'] || 'Your Gateway to Chinese Universities');
+            }
+            const langSel = document.getElementById('lang-select');
+            if (langSel) {
+                const saved = localStorage.getItem('locale') || 'en';
+                langSel.value = saved;
+                langSel.addEventListener('change', function() {
+                    localStorage.setItem('locale', langSel.value);
+                });
+                applyI18n(saved);
+            }
+            const adminVisible = adminLink && adminLink.style.display !== 'none';
+            if (adminVisible) {
+                const user = getCurrentUser();
+                const token = user && user.access_token ? user.access_token : null;
+                const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+                fetch('/api/llm/status', { headers })
+                    .then(r => r.json())
+                    .then(s => {
+                        const body = document.getElementById('llm-status-body');
+                        if (body) {
+                            body.innerHTML = `
+                                <div><i class="fas fa-key"></i> Minimax Key: ${s.minimax?.has_key ? '✅ Configured' : '❌ Not Set'}</div>
+                                <div><i class="fas fa-microchip"></i> Model: ${s.minimax?.model || 'abab6.5-chat'}</div>
+                            `;
+                        }
+                    })
+                    .catch(() => {});
+            }
+            // 登录对接
+            const loginBtn = document.getElementById('login-btn');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function() {
+                    const email = document.querySelector('#login-page input[type="email"]')?.value || '';
+                    const password = document.querySelector('#login-page input[type="password"]')?.value || '';
+                    const body = new URLSearchParams();
+                    body.append('username', email);
+                    body.append('password', password);
+                    fetch('/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+                        .then(r => r.json())
+                        .then(tok => {
+                            const token = tok.access_token;
+                            if (!token) throw new Error('no token');
+                            return fetch('/users/me', { headers: { 'Authorization': 'Bearer ' + token } }).then(r => r.json()).then(me => ({ token, me }));
+                        })
+                        .then(({ token, me }) => {
+                            saveUser({ access_token: token, email: me.email, username: me.username, is_admin: me.is_admin });
+                            if (adminLink) adminLink.style.display = me.is_admin ? 'inline-flex' : 'none';
+                            if (compareLink) compareLink.style.display = 'inline-flex';
+                            showPage('home');
+                        })
+                        .catch(() => alert('Login failed.'));
+                });
+            }
+            // 注册对接
+            const registerBtn = document.getElementById('register-btn');
+            if (registerBtn) {
+                registerBtn.addEventListener('click', function() {
+                    const email = document.querySelector('#register-page input[type="email"]')?.value || '';
+                    const username = document.querySelector('#register-page input[type="text"]')?.value || '';
+                    const pw = document.querySelectorAll('#register-page input[type="password"]')[0]?.value || '';
+                    const pw2 = document.querySelectorAll('#register-page input[type="password"]')[1]?.value || '';
+                    fetch('/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, username, password: pw, confirm_password: pw2 })
+                    })
+                    .then(r => {
+                        if (!r.ok) return r.json().then(e => { throw new Error(e.detail || 'register error'); });
+                        return r.json();
+                    })
+                    .then(() => {
+                        const body = new URLSearchParams();
+                        body.append('username', email);
+                        body.append('password', pw);
+                        return fetch('/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+                    })
+                    .then(r => r.json())
+                    .then(tok => {
+                        const token = tok.access_token;
+                        if (!token) throw new Error('no token');
+                        return fetch('/users/me', { headers: { 'Authorization': 'Bearer ' + token } }).then(r => r.json()).then(me => ({ token, me }));
+                    })
+                    .then(({ token, me }) => {
+                        saveUser({ access_token: token, email: me.email, username: me.username, is_admin: me.is_admin });
+                        if (adminLink) adminLink.style.display = me.is_admin ? 'inline-flex' : 'none';
+                        if (compareLink) compareLink.style.display = 'inline-flex';
+                        showPage('home');
+                    })
+                    .catch(err => alert('Register failed: ' + err.message));
+                });
+            }
+            // 收藏与对比
+            function authHeaders() {
+                const user = getCurrentUser();
+                const token = user && user.access_token ? user.access_token : null;
+                return token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+            }
+            window.toggleFavorite = function(programId) {
+                fetch('/users/favorites', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ program_id: programId }) })
+                    .then(() => alert('Added to favorites'))
+                    .catch(() => alert('Failed to add favorite'));
+            }
+            const compareNav = document.getElementById('compare-nav-link');
+            if (compareNav) {
+                compareNav.addEventListener('click', function() {
+                    loadFavorites();
+                });
+            }
+            window.loadFavorites = function() {
+                fetch('/users/favorites', { headers: authHeaders() })
+                    .then(r => r.json())
+                    .then(d => {
+                        const items = d.favorites || [];
+                        const el = document.getElementById('compare-table');
+                        let html = '<div style="overflow:auto;"><table style="width:100%; border-collapse:collapse;"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">University</th><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">City</th><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">QS</th><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">Fees</th><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">Deadline</th><th style="text-align:left;padding:8px;border-bottom:1px solid #eee;">Actions</th></tr></thead><tbody>';
+                        items.forEach(it => {
+                            html += `<tr>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;">${it.name}</td>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;">${it.city || ''}</td>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;">${it.qs_rank || ''}</td>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;">${it.fees || ''}</td>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;">${it.deadline || ''}</td>
+                                <td style="padding:8px;border-bottom:1px solid #f0f0f0;"><button class="btn btn-secondary" onclick="removeFavorite('${it.id}')">Remove</button></td>
+                            </tr>`;
+                        });
+                        html += '</tbody></table></div>';
+                        el.innerHTML = html;
+                    })
+                    .catch(() => {
+                        const el = document.getElementById('compare-table');
+                        if (el) el.innerText = 'Failed to load favorites.';
+                    });
+            }
+            window.removeFavorite = function(programId) {
+                fetch('/users/favorites/' + encodeURIComponent(programId), { method: 'DELETE', headers: authHeaders() })
+                    .then(() => loadFavorites())
+                    .catch(() => alert('Failed to remove favorite'));
+            }
+        });
     </script>
 </body>
 </html>

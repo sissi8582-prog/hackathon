@@ -1,8 +1,10 @@
 from typing import List, Dict, Any, Optional
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
-from .rag_engine import search_programs, DATA_PATH
+from sqlalchemy.orm import Session
 import json
+from .database import get_db
+from .models import University
 
 router = APIRouter(prefix="/api", tags=["programs"])
 
@@ -14,46 +16,91 @@ class FilterQuery(BaseModel):
 
 
 @router.get("/options")
-def get_options():
-    try:
-        data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        data = []
-    cities = sorted(list({p.get("city") for p in data if p.get("city")}))
-    fields = sorted(list({f for p in data for f in p.get("fields", [])}))
+def get_options(db: Session = Depends(get_db)):
+    rows = db.query(University).all()
+    cities = sorted(list({r.city for r in rows if r.city}))
+    fields = set()
+    for r in rows:
+        arr = []
+        try:
+            arr = json.loads(r.fields_offered) if r.fields_offered else []
+        except Exception:
+            arr = []
+        for f in arr:
+            fields.add(f)
+    fields = sorted(list(fields))
     return {"cities": cities, "fields": fields, "sort_by": ["qs", "cn"]}
 
 
 @router.post("/programs/filter")
-def filter_programs(q: FilterQuery):
-    try:
-        data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        data = []
+def filter_programs(q: FilterQuery, db: Session = Depends(get_db)):
+    rows = db.query(University).all()
     res = []
-    for p in data:
+    for r in rows:
         if q.cities and "ALL" not in q.cities:
-            if p.get("city") not in q.cities:
+            if r.city not in q.cities:
                 continue
+        fields = []
+        try:
+            fields = json.loads(r.fields_offered) if r.fields_offered else []
+        except Exception:
+            fields = []
         if q.fields and "ALL" not in q.fields:
-            if not set(p.get("fields", [])).intersection(set(q.fields)):
+            if not set(fields).intersection(set(q.fields)):
                 continue
-        res.append(p)
+        req = {}
+        try:
+            req = json.loads(r.requirements) if r.requirements else {}
+        except Exception:
+            req = {}
+        res.append({
+            "id": r.ext_id,
+            "name": r.name,
+            "university": r.name,
+            "city": r.city,
+            "fields": fields,
+            "qs_rank": r.qs_rank,
+            "cn_rank": r.cn_rank,
+            "fees": r.fees,
+            "deadline": r.deadline,
+            "scholarships": json.loads(r.scholarships) if r.scholarships else [],
+            "official_link": r.official_link,
+            "requirements": req
+        })
     key = "qs_rank" if q.sort_by == "qs" else "cn_rank"
     res.sort(key=lambda x: x.get(key) or 1e9)
     return {"programs": res}
 
 
 @router.get("/programs/{program_id}")
-def program_detail(program_id: str):
+def program_detail(program_id: str, db: Session = Depends(get_db)):
+    r = db.query(University).filter(University.ext_id == program_id).first()
+    if not r:
+        raise HTTPException(status_code=404, detail="not found")
+    fields = []
     try:
-        data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+        fields = json.loads(r.fields_offered) if r.fields_offered else []
     except Exception:
-        data = []
-    for p in data:
-        if p.get("id") == program_id:
-            return p
-    raise HTTPException(status_code=404, detail="not found")
+        fields = []
+    req = {}
+    try:
+        req = json.loads(r.requirements) if r.requirements else {}
+    except Exception:
+        req = {}
+    return {
+        "id": r.ext_id,
+        "name": r.name,
+        "university": r.name,
+        "city": r.city,
+        "fields": fields,
+        "qs_rank": r.qs_rank,
+        "cn_rank": r.cn_rank,
+        "fees": r.fees,
+        "deadline": r.deadline,
+        "scholarships": json.loads(r.scholarships) if r.scholarships else [],
+        "official_link": r.official_link,
+        "requirements": req
+    }
 
 
 class Profile(BaseModel):
@@ -67,21 +114,16 @@ class Profile(BaseModel):
 
 
 @router.post("/programs/{program_id}/compare")
-def compare_requirements(program_id: str, profile: Profile):
-    try:
-        data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        data = []
-    prog = None
-    for p in data:
-        if p.get("id") == program_id:
-            prog = p
-            break
-    if not prog:
+def compare_requirements(program_id: str, profile: Profile, db: Session = Depends(get_db)):
+    r = db.query(University).filter(University.ext_id == program_id).first()
+    if not r:
         raise HTTPException(status_code=404, detail="not found")
     
     missing_requirements = []
-    req = prog.get("requirements", {})
+    try:
+        req = json.loads(r.requirements) if r.requirements else {}
+    except Exception:
+        req = {}
     
     # GPA comparison
     gpa_min = req.get("gpa_min")
@@ -161,9 +203,9 @@ def compare_requirements(program_id: str, profile: Profile):
         "is_eligible": is_eligible,
         "missing_requirements": missing_requirements,
         "program_info": {
-            "id": prog.get("id"),
-            "name": prog.get("name"),
-            "university": prog.get("university"),
+            "id": r.ext_id,
+            "name": r.name,
+            "university": r.name,
             "requirements": req
         }
     }

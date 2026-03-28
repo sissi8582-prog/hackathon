@@ -4,11 +4,13 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, Field
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from .database import Base, engine, get_db
+from sqlalchemy import and_
+from .models import University, Favorite
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 ALGORITHM = "HS256"
@@ -25,6 +27,7 @@ class User(Base):
     username = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    is_admin = Column(Boolean, default=False)
 
 
 Base.metadata.create_all(bind=engine)
@@ -65,6 +68,7 @@ class UserOut(BaseModel):
     id: int
     email: EmailStr
     username: str
+    is_admin: bool
 
 
 class UserUpdate(BaseModel):
@@ -86,11 +90,11 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="passwords do not match")
     if get_user_by_email(db, payload.email):
         raise HTTPException(status_code=400, detail="email already registered")
-    user = User(email=str(payload.email).lower(), username=payload.username, hashed_password=hash_password(payload.password))
+    user = User(email=str(payload.email).lower(), username=payload.username, hashed_password=hash_password(payload.password), is_admin=False)
     db.add(user)
     db.commit()
     db.refresh(user)
-    return UserOut(id=user.id, email=user.email, username=user.username)
+    return UserOut(id=user.id, email=user.email, username=user.username, is_admin=user.is_admin)
 
 
 @router.post("/login", response_model=Token)
@@ -123,7 +127,7 @@ users_router = APIRouter(prefix="/users", tags=["users"])
 
 @users_router.get("/me", response_model=UserOut)
 def me(current_user: User = Depends(get_current_user)):
-    return UserOut(id=current_user.id, email=current_user.email, username=current_user.username)
+    return UserOut(id=current_user.id, email=current_user.email, username=current_user.username, is_admin=current_user.is_admin)
 
 
 @users_router.patch("/me", response_model=UserOut)
@@ -135,4 +139,44 @@ def update_me(payload: UserUpdate, db: Session = Depends(get_db), current_user: 
     db.add(current_user)
     db.commit()
     db.refresh(current_user)
-    return UserOut(id=current_user.id, email=current_user.email, username=current_user.username)
+    return UserOut(id=current_user.id, email=current_user.email, username=current_user.username, is_admin=current_user.is_admin)
+
+class FavoriteIn(BaseModel):
+    program_id: str
+
+@users_router.get("/favorites")
+def list_favorites(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    favs = db.query(Favorite).filter(Favorite.user_id == current_user.id).all()
+    items = []
+    for f in favs:
+        u = db.query(University).filter(University.ext_id == f.program_ext_id).first()
+        if u:
+            items.append({
+                "id": u.ext_id,
+                "name": u.name,
+                "city": u.city,
+                "qs_rank": u.qs_rank,
+                "cn_rank": u.cn_rank,
+                "fees": u.fees,
+                "deadline": u.deadline,
+                "requirements": (u.requirements and __import__("json").loads(u.requirements)) or {},
+                "fields": (u.fields_offered and __import__("json").loads(u.fields_offered)) or [],
+                "official_link": u.official_link
+            })
+    return {"favorites": items}
+
+@users_router.post("/favorites")
+def add_favorite(payload: FavoriteIn, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    exists = db.query(Favorite).filter(and_(Favorite.user_id == current_user.id, Favorite.program_ext_id == payload.program_id)).first()
+    if exists:
+        return {"ok": True}
+    fav = Favorite(user_id=current_user.id, program_ext_id=payload.program_id)
+    db.add(fav)
+    db.commit()
+    return {"ok": True}
+
+@users_router.delete("/favorites/{program_id}")
+def remove_favorite(program_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    db.query(Favorite).filter(and_(Favorite.user_id == current_user.id, Favorite.program_ext_id == program_id)).delete()
+    db.commit()
+    return {"ok": True}
