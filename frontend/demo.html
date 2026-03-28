@@ -338,6 +338,30 @@
             gap: 12;
             margin-bottom: 12;
         }
+        .missing-requirement-item {
+            padding: 12;
+            background: #fff5f5;
+            border-radius: 6;
+            border-left: 3px solid #ef4444;
+            margin-bottom: 8;
+        }
+        .missing-requirement-title {
+            font-size: 14;
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 4;
+        }
+        .missing-requirement-detail {
+            font-size: 13;
+            color: #666;
+            margin-bottom: 2;
+        }
+        .missing-requirement-comparison {
+            font-size: 12;
+            color: #991b1b;
+            font-weight: 500;
+            margin-top: 4;
+        }
         .back-btn {
             background: white;
             color: #667eea;
@@ -533,7 +557,7 @@
             </div>
         </div>
 
-        <div class="program-card" onclick="showPage('detail')">
+        <div class="program-card" onclick="showPage('detail', 'pku_bio_ms')">
             <div class="program-header">
                 <div class="program-title">
                     <h3>Peking University</h3>
@@ -552,7 +576,7 @@
             </div>
         </div>
 
-        <div class="program-card" onclick="showPage('detail')">
+        <div class="program-card" onclick="showPage('detail', 'thu_cs_ms')">
             <div class="program-header">
                 <div class="program-title">
                     <h3>Tsinghua University</h3>
@@ -571,7 +595,7 @@
             </div>
         </div>
 
-        <div class="program-card" onclick="showPage('detail')">
+        <div class="program-card" onclick="showPage('detail', 'fudan_fin_ms')">
             <div class="program-header">
                 <div class="program-title">
                     <h3>Fudan University</h3>
@@ -590,7 +614,7 @@
             </div>
         </div>
 
-        <div class="program-card" onclick="showPage('detail')">
+        <div class="program-card" onclick="showPage('detail', 'sjtu_me_ms')">
             <div class="program-header">
                 <div class="program-title">
                     <h3>Shanghai Jiao Tong University</h3>
@@ -651,12 +675,21 @@
 
             <div>
                 <div class="card sticky-sidebar">
-                    <h3 style="font-size: 20; margin-bottom: 20; color: #333; font-weight: 700; display: flex; align-items: center; gap: 8;">⚠️ Unmet Requirements</h3>
-                    <div class="success-box">
+                    <h3 style="font-size: 20; margin-bottom: 20; color: #333; font-weight: 700; display: flex; align-items: center; gap: 8;">⚠️ Eligibility Check</h3>
+                    <div id="eligibility-loading" style="text-align: center; padding: 20;">
+                        <div style="font-size: 24;">⏳</div>
+                        <div style="color: #666; margin-top: 8;">Checking your eligibility...</div>
+                    </div>
+                    <div id="eligibility-success" class="success-box hidden">
                         <div style="font-size: 48; margin-bottom: 8;">✅</div>
-                        <div style="font-size: 16; color: #10b981; font-weight: 700; margin-bottom: 4;">All Requirements Met!</div>
+                        <div style="font-size: 16; color: #10b981; font-weight: 700; margin-bottom: 4;">You are eligible to apply!</div>
                         <div style="font-size: 14; color: #059669;">You meet all requirements for this program.</div>
                     </div>
+                    <div id="eligibility-error" class="hidden">
+                        <div style="font-size: 16; color: #ef4444; font-weight: 700; margin-bottom: 16;">⚠️ Some requirements are not met</div>
+                        <div id="missing-requirements-list"></div>
+                    </div>
+                    <button id="check-eligibility-btn" class="btn btn-primary" style="width: 100%; margin-top: 16;" onclick="checkEligibility()">Check Eligibility</button>
                 </div>
             </div>
         </div>
@@ -710,7 +743,9 @@
 
     <script>
         // 页面切换功能
-        function showPage(page) {
+        let currentProgramId = null;
+        
+        function showPage(page, programId = null) {
             const pages = ['home', 'filters', 'results', 'detail', 'login', 'register'];
             pages.forEach(p => {
                 const el = document.getElementById(p + '-page');
@@ -721,6 +756,131 @@
             const target = document.getElementById(page + '-page');
             if (target) {
                 target.classList.remove('hidden');
+            }
+            
+            // 如果有programId，保存它并更新详情页面
+            if (page === 'detail' && programId) {
+                currentProgramId = programId;
+                updateDetailPage(programId);
+            }
+        }
+        
+        // 更新详情页面内容
+        function updateDetailPage(programId) {
+            // 根据programId更新详情页面的内容
+            const programData = {
+                'pku_bio_ms': {
+                    university: 'Peking University',
+                    name: 'Master of Bioinformatics',
+                    city: 'Beijing',
+                    qs_rank: 17,
+                    cn_rank: 2,
+                    fields: ['Bioinformatics', 'Life Sciences'],
+                    requirements: {
+                        gpa_min: 3.4,
+                        toefl_min: 100,
+                        ielts_min: 7.0,
+                        hsk_required: false
+                    }
+                },
+                'thu_cs_ms': {
+                    university: 'Tsinghua University',
+                    name: 'Master of Computer Science',
+                    city: 'Beijing',
+                    qs_rank: 25,
+                    cn_rank: 1,
+                    fields: ['Computer Science', 'Artificial Intelligence'],
+                    requirements: {
+                        gpa_min: 3.3,
+                        toefl_min: 95,
+                        ielts_min: 6.5,
+                        hsk_required: false
+                    }
+                },
+                'fudan_fin_ms': {
+                    university: 'Fudan University',
+                    name: 'Master of Finance',
+                    city: 'Shanghai',
+                    qs_rank: 44,
+                    cn_rank: 4,
+                    fields: ['Finance', 'Economics'],
+                    requirements: {
+                        gpa_min: 3.2,
+                        toefl_min: 95,
+                        ielts_min: 6.5,
+                        hsk_required: false
+                    }
+                },
+                'sjtu_me_ms': {
+                    university: 'Shanghai Jiao Tong University',
+                    name: 'Master of Mechanical Engineering',
+                    city: 'Shanghai',
+                    qs_rank: 50,
+                    cn_rank: 3,
+                    fields: ['Mechanical Engineering'],
+                    requirements: {
+                        gpa_min: 3.0,
+                        toefl_min: 90,
+                        ielts_min: 6.0,
+                        hsk_required: false
+                    }
+                }
+            };
+            
+            const program = programData[programId];
+            if (program) {
+                // 更新大学信息
+                const detailPage = document.getElementById('detail-page');
+                const universityTitle = detailPage.querySelector('h1');
+                const programTitle = detailPage.querySelector('h2');
+                const citySpan = detailPage.querySelectorAll('span')[0];
+                const qsRankSpan = detailPage.querySelectorAll('span')[1];
+                const cnRankSpan = detailPage.querySelectorAll('span')[2];
+                const fieldTags = detailPage.querySelectorAll('.field-tag');
+                
+                universityTitle.textContent = program.university;
+                programTitle.textContent = program.name;
+                citySpan.innerHTML = `📍 <strong>${program.city}</strong>`;
+                qsRankSpan.innerHTML = `🏆 QS Rank: <strong>${program.qs_rank}</strong>`;
+                cnRankSpan.innerHTML = `🎯 China Rank: <strong>${program.cn_rank}</strong>`;
+                
+                // 更新专业标签
+                fieldTags.forEach((tag, index) => {
+                    if (program.fields[index]) {
+                        tag.textContent = program.fields[index];
+                    }
+                });
+                
+                // 更新要求显示
+                const reqBoxes = detailPage.querySelectorAll('.requirement-box');
+                const reqLabels = detailPage.querySelectorAll('.requirement-label');
+                const reqValues = detailPage.querySelectorAll('.requirement-value');
+                
+                reqLabels[0].textContent = 'GPA';
+                reqValues[0].textContent = `Minimum ${program.requirements.gpa_min}`;
+                
+                reqLabels[1].textContent = 'TOEFL';
+                reqValues[1].textContent = `Minimum ${program.requirements.toefl_min}`;
+                
+                reqLabels[2].textContent = 'IELTS';
+                reqValues[2].textContent = `Minimum ${program.requirements.ielts_min}`;
+                
+                reqLabels[3].textContent = 'HSK';
+                reqValues[3].textContent = program.requirements.hsk_required ? 'Required' : 'Not Required';
+                
+                // 重置资格检查状态
+                const loadingEl = document.getElementById('eligibility-loading');
+                const successEl = document.getElementById('eligibility-success');
+                const errorEl = document.getElementById('eligibility-error');
+                const missingListEl = document.getElementById('missing-requirements-list');
+                const checkBtn = document.getElementById('check-eligibility-btn');
+                
+                loadingEl.classList.remove('hidden');
+                successEl.classList.add('hidden');
+                errorEl.classList.add('hidden');
+                missingListEl.innerHTML = '';
+                checkBtn.disabled = false;
+                checkBtn.textContent = 'Check Eligibility';
             }
         }
 
@@ -878,6 +1038,110 @@
         function logout() {
             localStorage.removeItem('currentUser');
             window.location.reload();
+        }
+
+        // 检查申请资格
+        function checkEligibility() {
+            const profile = getUserProfile();
+            if (!profile) {
+                alert('Please complete your profile first by going to the Apply page.');
+                showPage('filters');
+                return;
+            }
+
+            const loadingEl = document.getElementById('eligibility-loading');
+            const successEl = document.getElementById('eligibility-success');
+            const errorEl = document.getElementById('eligibility-error');
+            const missingListEl = document.getElementById('missing-requirements-list');
+            const checkBtn = document.getElementById('check-eligibility-btn');
+
+            // 显示加载状态
+            loadingEl.classList.remove('hidden');
+            successEl.classList.add('hidden');
+            errorEl.classList.add('hidden');
+            checkBtn.disabled = true;
+            checkBtn.textContent = 'Checking...';
+
+            // 使用当前程序ID
+            const programId = currentProgramId || 'pku_bio_ms';
+            const apiUrl = `http://localhost:8000/api/programs/${programId}/compare`;
+            
+            // 使用模拟数据，实际应该调用API
+            simulateAPIResponse({
+                is_eligible: false,
+                missing_requirements: [
+                    {
+                        type: 'gpa',
+                        message: 'Your GPA: 3.0 | Required: 3.4',
+                        required: 'Minimum GPA: 3.4',
+                        user_value: '3.0'
+                    },
+                    {
+                        type: 'toefl',
+                        message: 'Your TOEFL: 85 | Required: 100',
+                        required: 'Minimum TOEFL: 100',
+                        user_value: '85'
+                    }
+                ],
+                program_info: {
+                    id: programId,
+                    name: 'Master of Bioinformatics',
+                    university: 'Peking University',
+                    requirements: {
+                        gpa_min: 3.4,
+                        toefl_min: 100,
+                        ielts_min: 7.0,
+                        hsk_required: false
+                    }
+                }
+            }, 1000)
+            .then(response => {
+                // 隐藏加载状态
+                loadingEl.classList.add('hidden');
+                checkBtn.disabled = false;
+                checkBtn.textContent = 'Check Eligibility';
+
+                if (response.is_eligible) {
+                    // 显示成功状态
+                    successEl.classList.remove('hidden');
+                    errorEl.classList.add('hidden');
+                } else {
+                    // 显示缺失要求
+                    successEl.classList.add('hidden');
+                    errorEl.classList.remove('hidden');
+                    
+                    // 清空并重新生成缺失要求列表
+                    missingListEl.innerHTML = '';
+                    
+                    response.missing_requirements.forEach(req => {
+                        const reqItem = document.createElement('div');
+                        reqItem.className = 'missing-requirement-item';
+                        
+                        const icon = req.type === 'gpa' ? '📊' : 
+                                   req.type === 'toefl' ? '📝' :
+                                   req.type === 'ielts' ? '📝' :
+                                   req.type === 'hsk' ? '🇨🇳' : '⚠️';
+                        
+                        reqItem.innerHTML = `
+                            <div class="missing-requirement-title">${icon} ${req.type.toUpperCase()} Requirement Not Met</div>
+                            <div class="missing-requirement-detail">${req.message}</div>
+                            <div class="missing-requirement-comparison">
+                                <strong>Required:</strong> ${req.required}<br>
+                                <strong>Your Value:</strong> ${req.user_value}
+                            </div>
+                        `;
+                        
+                        missingListEl.appendChild(reqItem);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error checking eligibility:', error);
+                loadingEl.classList.add('hidden');
+                checkBtn.disabled = false;
+                checkBtn.textContent = 'Check Eligibility';
+                alert('Error checking eligibility. Please try again.');
+            });
         }
     </script>
 </body>

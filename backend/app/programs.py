@@ -79,17 +79,91 @@ def compare_requirements(program_id: str, profile: Profile):
             break
     if not prog:
         raise HTTPException(status_code=404, detail="not found")
-    unmet = []
+    
+    missing_requirements = []
     req = prog.get("requirements", {})
+    
+    # GPA comparison
     gpa_min = req.get("gpa_min")
-    if gpa_min is not None and (profile.gpa is None or profile.gpa < gpa_min):
-        unmet.append(f"gpa >= {gpa_min}")
+    if gpa_min is not None:
+        if profile.gpa is None:
+            missing_requirements.append({
+                "type": "gpa",
+                "message": f"Missing GPA information",
+                "required": f"Minimum GPA: {gpa_min}",
+                "user_value": "Not provided"
+            })
+        elif profile.gpa < gpa_min:
+            missing_requirements.append({
+                "type": "gpa",
+                "message": f"Your GPA: {profile.gpa} | Required: {gpa_min}",
+                "required": f"Minimum GPA: {gpa_min}",
+                "user_value": f"{profile.gpa}"
+            })
+    
+    # TOEFL comparison
     toefl_min = req.get("toefl_min")
-    if toefl_min is not None and (profile.toefl is None or profile.toefl < toefl_min):
-        unmet.append(f"toefl >= {toefl_min}")
+    if toefl_min is not None:
+        if profile.toefl is None:
+            missing_requirements.append({
+                "type": "toefl",
+                "message": f"Missing TOEFL score",
+                "required": f"Minimum TOEFL: {toefl_min}",
+                "user_value": "Not provided"
+            })
+        elif profile.toefl < toefl_min:
+            missing_requirements.append({
+                "type": "toefl",
+                "message": f"Your TOEFL: {profile.toefl} | Required: {toefl_min}",
+                "required": f"Minimum TOEFL: {toefl_min}",
+                "user_value": f"{profile.toefl}"
+            })
+    
+    # IELTS comparison
     ielts_min = req.get("ielts_min")
-    if ielts_min is not None and (profile.ielts is None or profile.ielts < ielts_min):
-        unmet.append(f"ielts >= {ielts_min}")
-    if req.get("hsk_required") and (profile.hsk is None or profile.hsk <= 0):
-        unmet.append("hsk required")
-    return {"unmet": unmet}
+    if ielts_min is not None:
+        if profile.ielts is None:
+            missing_requirements.append({
+                "type": "ielts",
+                "message": f"Missing IELTS score",
+                "required": f"Minimum IELTS: {ielts_min}",
+                "user_value": "Not provided"
+            })
+        elif profile.ielts < ielts_min:
+            missing_requirements.append({
+                "type": "ielts",
+                "message": f"Your IELTS: {profile.ielts} | Required: {ielts_min}",
+                "required": f"Minimum IELTS: {ielts_min}",
+                "user_value": f"{profile.ielts}"
+            })
+    
+    # HSK comparison
+    hsk_required = req.get("hsk_required")
+    if hsk_required:
+        if profile.hsk is None:
+            missing_requirements.append({
+                "type": "hsk",
+                "message": f"Missing HSK certificate",
+                "required": "HSK certificate required",
+                "user_value": "Not provided"
+            })
+        elif profile.hsk <= 0:
+            missing_requirements.append({
+                "type": "hsk",
+                "message": f"Invalid HSK score: {profile.hsk}",
+                "required": "Valid HSK certificate required",
+                "user_value": f"{profile.hsk}"
+            })
+    
+    is_eligible = len(missing_requirements) == 0
+    
+    return {
+        "is_eligible": is_eligible,
+        "missing_requirements": missing_requirements,
+        "program_info": {
+            "id": prog.get("id"),
+            "name": prog.get("name"),
+            "university": prog.get("university"),
+            "requirements": req
+        }
+    }
