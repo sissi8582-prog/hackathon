@@ -490,28 +490,7 @@
                 </div>
             </div>
 
-            <div class="form-group" style="margin-bottom: 24;">
-                <label>Preferred Cities</label>
-                <select multiple style="height: 160;">
-                    <option>Beijing</option>
-                    <option>Shanghai</option>
-                </select>
-                <div style="font-size: 12; color: #888; margin-top: 4;">Hold Ctrl/Cmd to select multiple cities</div>
-            </div>
 
-            <div class="form-group" style="margin-bottom: 24;">
-                <label>Fields of Interest</label>
-                <select multiple style="height: 160;">
-                    <option>Artificial Intelligence</option>
-                    <option>Bioinformatics</option>
-                    <option>Computer Science</option>
-                    <option>Economics</option>
-                    <option>Finance</option>
-                    <option>Life Sciences</option>
-                    <option>Mechanical Engineering</option>
-                </select>
-                <div style="font-size: 12; color: #888; margin-top: 4;">Hold Ctrl/Cmd to select multiple fields</div>
-            </div>
 
             <button class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 18;" onclick="showPage('results')">Continue to Find Programs</button>
         </div>
@@ -980,9 +959,7 @@
                         gpa: gpa,
                         toefl: toefl,
                         ielts: ielts,
-                        hsk: hsk,
-                        cities: Array.from(filtersForm.querySelectorAll('select')[0].selectedOptions).map(option => option.value),
-                        majors: Array.from(filtersForm.querySelectorAll('select')[1].selectedOptions).map(option => option.value)
+                        hsk: hsk
                     };
                     
                     saveUserProfile(profile);
