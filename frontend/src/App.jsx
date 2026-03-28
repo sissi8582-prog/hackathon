@@ -1,27 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
+import Profile from "./pages/Profile.jsx";
+import Filters from "./pages/Filters.jsx";
+import Results from "./pages/Results.jsx";
+import ProgramDetail from "./pages/ProgramDetail.jsx";
 
-export default function App() {
-  const [text, setText] = useState("");
-  const [reply, setReply] = useState("");
-  async function send() {
-    try {
-      const r = await fetch("/api/llm/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
-      });
-      const data = await r.json();
-      setReply(data.text || JSON.stringify(data));
-    } catch (e) {
-      setReply(String(e));
-    }
+function Nav() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  function logout() {
+    localStorage.removeItem("token");
+    navigate("/login");
   }
   return (
-    <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>Smart Admissions Pathologist</h1>
-      <textarea value={text} onChange={e => setText(e.target.value)} rows={6} style={{ width: "100%" }} />
-      <button onClick={send} style={{ marginTop: 8 }}>Send</button>
-      <pre style={{ whiteSpace: "pre-wrap", marginTop: 16 }}>{reply}</pre>
+    <div style={{ display: "flex", gap: 12, padding: 12, borderBottom: "1px solid #eee" }}>
+      <Link to="/">Home</Link>
+      <Link to="/filters">Apply</Link>
+      {token ? <><Link to="/profile">Profile</Link><button onClick={logout}>Logout</button></> : <><Link to="/login">Login</Link><Link to="/register">Register</Link></>}
     </div>
+  );
+}
+
+function Home() {
+  return (
+    <div style={{ padding: 24 }}>
+      <h1>Study in China</h1>
+      <p>Guidance for Indonesian students applying to Chinese universities.</p>
+      <Link to="/filters">Start Application</Link>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/filters" element={<Filters />} />
+        <Route path="/results" element={<Results />} />
+        <Route path="/programs/:id" element={<ProgramDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

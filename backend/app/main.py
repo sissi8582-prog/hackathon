@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 try:
     import anthropic
@@ -11,9 +12,19 @@ except Exception:
 from .parser import parse_resume
 from .rag_engine import search_programs
 from .cv_generator import generate_cv
+from .auth import router as auth_router, users_router
+from .programs import router as programs_router
+from .parser import extract_profile
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class ChatInput(BaseModel):
     text: str
@@ -83,3 +94,35 @@ def api_chat(payload: ChatInput):
         return {"text": "\n".join(texts)}
     except Exception as e:
         raise HTTPException(status_code=502, detail=str(e))
+
+
+@app.post("/api/cv/extract")
+async def api_cv_extract(file: UploadFile = File(...)):
+    content = await file.read()
+    text = ""
+    try:
+        if file.filename.lower().endswith(".pdf"):
+            from pypdf import PdfReader
+            import io
+            reader = PdfReader(io.BytesIO(content))
+            for page in reader.pages:
+                text += page.extract_text() or ""
+        else:
+            text = content.decode("utf-8", errors="ignore")
+    except Exception:
+        text = content.decode("utf-8", errors="ignore")
+    profile = extract_profile(text)
+    return {"profile": profile}
+
+class TextPayload(BaseModel):
+    text: str
+
+@app.post("/api/cv/extract_text")
+def api_cv_extract_text(payload: TextPayload):
+    profile = extract_profile(payload.text)
+    return {"profile": profile}
+
+
+app.include_router(auth_router)
+app.include_router(users_router)
+app.include_router(programs_router)

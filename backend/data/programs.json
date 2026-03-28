@@ -1,16 +1,62 @@
 [
   {
-    "id": "cs_ms_ai",
-    "name": "MSc Computer Science (AI)",
-    "university": "Example University",
-    "keywords": ["computer", "science", "ai", "machine", "learning", "python"],
-    "requirements": ["GPA 3.0+", "GRE optional", "TOEFL 100+"]
+    "id": "thu_cs_ms",
+    "name": "Master of Computer Science",
+    "university": "Tsinghua University",
+    "city": "Beijing",
+    "fields": ["Computer Science", "Artificial Intelligence"],
+    "qs_rank": 25,
+    "cn_rank": 1,
+    "requirements": {
+      "gpa_min": 3.3,
+      "toefl_min": 95,
+      "ielts_min": 6.5,
+      "gre_required": true
+    }
   },
   {
-    "id": "bio_phd",
-    "name": "PhD Bioinformatics",
-    "university": "Sample Institute",
-    "keywords": ["bioinformatics", "genomics", "python", "r"],
-    "requirements": ["GPA 3.5+", "Publications preferred"]
+    "id": "pku_bio_ms",
+    "name": "Master of Bioinformatics",
+    "university": "Peking University",
+    "city": "Beijing",
+    "fields": ["Bioinformatics", "Life Sciences"],
+    "qs_rank": 17,
+    "cn_rank": 2,
+    "requirements": {
+      "gpa_min": 3.4,
+      "toefl_min": 100,
+      "ielts_min": 7.0,
+      "gre_required": false
+    }
+  },
+  {
+    "id": "sjtu_me_ms",
+    "name": "Master of Mechanical Engineering",
+    "university": "Shanghai Jiao Tong University",
+    "city": "Shanghai",
+    "fields": ["Mechanical Engineering"],
+    "qs_rank": 50,
+    "cn_rank": 3,
+    "requirements": {
+      "gpa_min": 3.0,
+      "toefl_min": 90,
+      "ielts_min": 6.0,
+      "gre_required": false
+    }
+  },
+  {
+    "id": "fudan_fin_ms",
+    "name": "Master of Finance",
+    "university": "Fudan University",
+    "city": "Shanghai",
+    "fields": ["Finance", "Economics"],
+    "qs_rank": 44,
+    "cn_rank": 4,
+    "requirements": {
+      "gpa_min": 3.2,
+      "toefl_min": 95,
+      "ielts_min": 6.5,
+      "gre_required": true
+    }
   }
 ]
