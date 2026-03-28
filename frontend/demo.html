@@ -891,6 +891,65 @@
             });
         }
 
+        // 从CV提取信息
+        function extractInformationFromCV() {
+            // 获取CV文本
+            const cvText = document.querySelector('textarea[placeholder="Paste your CV content here..."]').value;
+            
+            if (!cvText.trim()) {
+                alert('Please paste your CV content first or upload a file.');
+                return;
+            }
+            
+            // 显示加载状态
+            const extractBtn = document.querySelector('button:contains("Extract Information from CV")') || 
+                             Array.from(document.querySelectorAll('.btn-primary')).find(btn => btn.textContent.includes('Extract Information from CV'));
+            
+            if (extractBtn) {
+                extractBtn.disabled = true;
+                extractBtn.textContent = 'Extracting...';
+            }
+            
+            // 模拟AI分析过程
+            simulateAPIResponse({
+                success: true,
+                extracted_info: {
+                    gpa: '3.5',
+                    toefl: '95',
+                    ielts: '6.5',
+                    hsk: '5'
+                }
+            }, 1500)
+            .then(response => {
+                if (response.success) {
+                    const info = response.extracted_info;
+                    
+                    // 填充提取的信息到表单
+                    const gpaInput = document.querySelector('input[placeholder="e.g., 3.5"]');
+                    const toeflInput = document.querySelector('input[placeholder="e.g., 90"]');
+                    const ieltsInput = document.querySelector('input[placeholder="e.g., 6.5"]');
+                    const hskInput = document.querySelector('input[placeholder="e.g., 5"]');
+                    
+                    if (gpaInput) gpaInput.value = info.gpa;
+                    if (toeflInput) toeflInput.value = info.toefl;
+                    if (ieltsInput) ieltsInput.value = info.ielts;
+                    if (hskInput) hskInput.value = info.hsk;
+                    
+                    alert('Information extracted successfully! Please review and adjust if needed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error extracting information:', error);
+                alert('Error extracting information. Please try again.');
+            })
+            .finally(() => {
+                if (extractBtn) {
+                    extractBtn.disabled = false;
+                    extractBtn.textContent = 'Extract Information from CV';
+                }
+            });
+        }
+
         // 表单提交处理
         document.addEventListener('DOMContentLoaded', function() {
             // 登录表单处理
@@ -995,6 +1054,24 @@
                             alert('File uploaded successfully!');
                         }
                     });
+                });
+            }
+
+            // 提取信息按钮处理
+            const extractBtn = document.querySelector('button:contains("Extract Information from CV")');
+            if (!extractBtn) {
+                // 尝试另一种选择方式
+                const allButtons = document.querySelectorAll('.btn-primary');
+                allButtons.forEach(btn => {
+                    if (btn.textContent.includes('Extract Information from CV')) {
+                        extractBtn = btn;
+                    }
+                });
+            }
+            
+            if (extractBtn) {
+                extractBtn.addEventListener('click', function() {
+                    extractInformationFromCV();
                 });
             }
 
