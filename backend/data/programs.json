@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cs_ms_ai",
+    "name": "MSc Computer Science (AI)",
+    "university": "Example University",
+    "keywords": ["computer", "science", "ai", "machine", "learning", "python"],
+    "requirements": ["GPA 3.0+", "GRE optional", "TOEFL 100+"]
+  },
+  {
+    "id": "bio_phd",
+    "name": "PhD Bioinformatics",
+    "university": "Sample Institute",
+    "keywords": ["bioinformatics", "genomics", "python", "r"],
+    "requirements": ["GPA 3.5+", "Publications preferred"]
+  }
+]
