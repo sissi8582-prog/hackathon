@@ -709,6 +709,7 @@
     </div>
 
     <script>
+        // 页面切换功能
         function showPage(page) {
             const pages = ['home', 'filters', 'results', 'detail', 'login', 'register'];
             pages.forEach(p => {
@@ -721,6 +722,162 @@
             if (target) {
                 target.classList.remove('hidden');
             }
+        }
+
+        // 本地存储功能
+        function saveUserProfile(profile) {
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+        }
+
+        function getUserProfile() {
+            const profile = localStorage.getItem('userProfile');
+            return profile ? JSON.parse(profile) : null;
+        }
+
+        function saveUser(user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+
+        function getCurrentUser() {
+            const user = localStorage.getItem('currentUser');
+            return user ? JSON.parse(user) : null;
+        }
+
+        // 模拟API调用
+        function simulateAPIResponse(data, delay = 500) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(data);
+                }, delay);
+            });
+        }
+
+        // 表单提交处理
+        document.addEventListener('DOMContentLoaded', function() {
+            // 登录表单处理
+            const loginForm = document.querySelector('#login-page .card');
+            if (loginForm) {
+                const loginBtn = loginForm.querySelector('.btn-primary');
+                loginBtn.addEventListener('click', function() {
+                    const email = loginForm.querySelector('input[type="email"]').value;
+                    const password = loginForm.querySelector('input[type="password"]').value;
+                    
+                    if (email && password) {
+                        simulateAPIResponse({ success: true, user: { email, username: email.split('@')[0] } })
+                            .then(response => {
+                                if (response.success) {
+                                    saveUser(response.user);
+                                    showPage('home');
+                                    alert('Login successful!');
+                                }
+                            });
+                    } else {
+                        alert('Please fill in all fields');
+                    }
+                });
+            }
+
+            // 注册表单处理
+            const registerForm = document.querySelector('#register-page .card');
+            if (registerForm) {
+                const registerBtn = registerForm.querySelector('.btn-primary');
+                registerBtn.addEventListener('click', function() {
+                    const email = registerForm.querySelector('input[type="email"]').value;
+                    const username = registerForm.querySelectorAll('input[type="text"]')[0].value;
+                    const password = registerForm.querySelectorAll('input[type="password"]')[0].value;
+                    const confirmPassword = registerForm.querySelectorAll('input[type="password"]')[1].value;
+                    
+                    if (email && username && password && confirmPassword) {
+                        if (password === confirmPassword) {
+                            simulateAPIResponse({ success: true, user: { email, username } })
+                                .then(response => {
+                                    if (response.success) {
+                                        saveUser(response.user);
+                                        showPage('home');
+                                        alert('Registration successful!');
+                                    }
+                                });
+                        } else {
+                            alert('Passwords do not match');
+                        }
+                    } else {
+                        alert('Please fill in all fields');
+                    }
+                });
+            }
+
+            // 过滤器表单处理
+            const filtersForm = document.querySelector('#filters-page');
+            if (filtersForm) {
+                const continueBtn = filtersForm.querySelector('.btn-primary:last-child');
+                continueBtn.addEventListener('click', function() {
+                    const gpa = filtersForm.querySelector('input[placeholder="e.g., 3.5"]').value;
+                    const toefl = filtersForm.querySelector('input[placeholder="e.g., 90"]').value;
+                    const ielts = filtersForm.querySelector('input[placeholder="e.g., 6.5"]').value;
+                    const hsk = filtersForm.querySelector('input[placeholder="e.g., 5"]').value;
+                    
+                    const profile = {
+                        gpa: gpa,
+                        toefl: toefl,
+                        ielts: ielts,
+                        hsk: hsk,
+                        cities: Array.from(filtersForm.querySelectorAll('select')[0].selectedOptions).map(option => option.value),
+                        majors: Array.from(filtersForm.querySelectorAll('select')[1].selectedOptions).map(option => option.value)
+                    };
+                    
+                    saveUserProfile(profile);
+                    showPage('results');
+                });
+            }
+
+            // 搜索按钮处理
+            const resultsPage = document.querySelector('#results-page');
+            if (resultsPage) {
+                const searchBtn = resultsPage.querySelector('.btn-primary');
+                searchBtn.addEventListener('click', function() {
+                    // 模拟搜索结果
+                    alert('Searching for programs...');
+                    simulateAPIResponse({ success: true })
+                        .then(() => {
+                            alert('Search completed!');
+                        });
+                });
+            }
+
+            // 上传区域处理
+            const uploadArea = document.querySelector('.upload-area');
+            if (uploadArea) {
+                uploadArea.addEventListener('click', function() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = '.pdf,.txt';
+                    input.click();
+                    
+                    input.addEventListener('change', function(e) {
+                        if (e.target.files.length > 0) {
+                            alert('File uploaded successfully!');
+                        }
+                    });
+                });
+            }
+
+            // 检查用户登录状态
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                const navRight = document.querySelector('.nav-right');
+                if (navRight) {
+                    navRight.innerHTML = `
+                        <span style="color: white; font-weight: 500;">Welcome, ${currentUser.username}</span>
+                        <a href="#" class="nav-link" onclick="logout()">Logout</a>
+                    `;
+                }
+            }
+        });
+
+        // 登出功能
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
         }
     </script>
 </body>
