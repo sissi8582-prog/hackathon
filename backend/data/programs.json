@@ -11,7 +11,7 @@
       "gpa_min": 3.3,
       "toefl_min": 95,
       "ielts_min": 6.5,
-      "gre_required": true
+      "hsk_required": false
     }
   },
   {
@@ -26,7 +26,7 @@
       "gpa_min": 3.4,
       "toefl_min": 100,
       "ielts_min": 7.0,
-      "gre_required": false
+      "hsk_required": false
     }
   },
   {
@@ -41,7 +41,7 @@
       "gpa_min": 3.0,
       "toefl_min": 90,
       "ielts_min": 6.0,
-      "gre_required": false
+      "hsk_required": false
     }
   },
   {
@@ -56,7 +56,7 @@
       "gpa_min": 3.2,
       "toefl_min": 95,
       "ielts_min": 6.5,
-      "gre_required": true
+      "hsk_required": false
     }
   }
 ]

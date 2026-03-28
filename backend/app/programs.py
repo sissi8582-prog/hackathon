@@ -60,7 +60,7 @@ class Profile(BaseModel):
     gpa: Optional[float] = None
     toefl: Optional[int] = None
     ielts: Optional[float] = None
-    gre: Optional[int] = None
+    hsk: Optional[int] = None
     majors: Optional[List[str]] = []
     cities: Optional[List[str]] = []
     skills: Optional[List[str]] = []
@@ -90,6 +90,6 @@ def compare_requirements(program_id: str, profile: Profile):
     ielts_min = req.get("ielts_min")
     if ielts_min is not None and (profile.ielts is None or profile.ielts < ielts_min):
         unmet.append(f"ielts >= {ielts_min}")
-    if req.get("gre_required") and (profile.gre is None or profile.gre <= 0):
-        unmet.append("gre required")
+    if req.get("hsk_required") and (profile.hsk is None or profile.hsk <= 0):
+        unmet.append("hsk required")
     return {"unmet": unmet}

@@ -18,7 +18,7 @@ def extract_profile(text: str) -> Dict[str, Any]:
     if anthropic and api_key:
         try:
             client = anthropic.Anthropic(api_key=api_key, base_url=base_url) if hasattr(anthropic, "Anthropic") else None
-            system = "Extract candidate profile as compact JSON with keys: gpa, toefl, ielts, gre, majors, cities, skills."
+            system = "Extract candidate profile as compact JSON with keys: gpa, toefl, ielts, hsk, majors, cities, skills."
             prompt = f"Resume:\n{text}\nReturn JSON only."
             resp = client.messages.create(
                 model=os.getenv("ANTHROPIC_MODEL", "MiniMax-M2.7"),
@@ -35,7 +35,7 @@ def extract_profile(text: str) -> Dict[str, Any]:
                 "gpa": parsed.get("gpa"),
                 "toefl": parsed.get("toefl"),
                 "ielts": parsed.get("ielts"),
-                "gre": parsed.get("gre"),
+                "hsk": parsed.get("hsk"),
                 "majors": parsed.get("majors") or [],
                 "cities": parsed.get("cities") or [],
                 "skills": parsed.get("skills") or [],
@@ -45,8 +45,8 @@ def extract_profile(text: str) -> Dict[str, Any]:
     gpa = None
     toefl = None
     ielts = None
-    gre = None
+    hsk = None
     majors = []
     cities = []
     skills = []
-    return {"gpa": gpa, "toefl": toefl, "ielts": ielts, "gre": gre, "majors": majors, "cities": cities, "skills": skills}
+    return {"gpa": gpa, "toefl": toefl, "ielts": ielts, "hsk": hsk, "majors": majors, "cities": cities, "skills": skills}
