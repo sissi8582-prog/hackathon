@@ -43,6 +43,8 @@ def build_recommendation_prompt(user_profile: Dict[str, Any], matched_universiti
         '      "weaknesses": [],\n'
         '      "improvement_suggestions": [],\n'
         '      "recommended_majors": [],\n'
+        '      "recommended_competitions": [],\n'
+        '      "suggested_internships": [],\n'
         '      "application_deadline": "",\n'
         '      "scholarship_opportunities": []\n'
         "    }\n"
@@ -54,6 +56,7 @@ def build_recommendation_prompt(user_profile: Dict[str, Any], matched_universiti
         "1) Only JSON, no extra text\n"
         "2) Each recommendation is justified by matching candidate profile to requirements\n"
         "3) Improvements are specific and actionable\n"
+        "4) Recommend relevant competitions and internships aligned with the candidate’s intended majors and the knowledge base context\n"
     )
     return tpl
 

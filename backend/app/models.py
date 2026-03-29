@@ -27,6 +27,38 @@ class Favorite(Base):
     user_id = Column(Integer, index=True, nullable=False)
     program_ext_id = Column(String, index=True, nullable=False)
 
+class Competition(Base):
+    __tablename__ = "competitions"
+    id = Column(Integer, primary_key=True, index=True)
+    ext_id = Column(String, unique=True, index=True, nullable=False)
+    name = Column(String, index=True, nullable=False)
+    fields_offered = Column(Text, nullable=True)
+    city = Column(String, index=True, nullable=True)
+    level = Column(String, nullable=True)
+    link = Column(String, nullable=True)
+    deadline = Column(String, nullable=True)
+    description = Column(Text, nullable=True)
+
+class Internship(Base):
+    __tablename__ = "internships"
+    id = Column(Integer, primary_key=True, index=True)
+    ext_id = Column(String, unique=True, index=True, nullable=False)
+    company = Column(String, index=True, nullable=True)
+    name = Column(String, index=True, nullable=False)
+    fields_offered = Column(Text, nullable=True)
+    city = Column(String, index=True, nullable=True)
+    link = Column(String, nullable=True)
+    deadline = Column(String, nullable=True)
+    description = Column(Text, nullable=True)
+    requirements = Column(Text, nullable=True)
+
+class PolicyLink(Base):
+    __tablename__ = "policy_links"
+    id = Column(Integer, primary_key=True, index=True)
+    university_ext_id = Column(String, index=True, nullable=True)
+    university_name = Column(String, nullable=False)
+    title = Column(String, nullable=False)
+    link = Column(String, nullable=False)
 
 def seed_universities_from_json(path: Path):
     Base.metadata.create_all(bind=engine)

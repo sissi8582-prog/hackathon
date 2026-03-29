@@ -33,6 +33,9 @@
             top: 0;
             z-index: 100;
             border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-wrap: nowrap;
         }
 
         .logo {
@@ -59,12 +62,14 @@
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 48px;
+            gap: 32px;
+            flex-wrap: nowrap;
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 24px;
+            flex-wrap: nowrap;
         }
 
         .nav-link {
@@ -84,6 +89,7 @@
             display: flex;
             gap: 12px;
             align-items: center;
+            flex-wrap: nowrap;
         }
 
         /* Button Styles */
@@ -498,16 +504,18 @@
         /* Responsive */
         @media (max-width: 768px) {
             nav {
-                padding: 12px 20px;
-                flex-direction: column;
-                gap: 12px;
+                padding: 12px 16px;
+                flex-direction: row;
+                gap: 8px;
+                overflow-x: auto;
+                white-space: nowrap;
             }
             .nav-left {
-                flex-direction: column;
-                gap: 16px;
+                flex-direction: row;
+                gap: 12px;
             }
             .nav-links {
-                gap: 20px;
+                gap: 12px;
             }
             .hero {
                 padding: 40px 24px;
@@ -693,6 +701,26 @@
         </div>
 
         <div id="programs-list"></div>
+        
+        <div class="card" style="margin-top: 24px;">
+            <h2><i class="fas fa-briefcase"></i> Opportunities</h2>
+            <p>Discover competitions and internships aligned to your selected fields</p>
+            <div class="grid-2" style="margin-bottom: 16px;">
+                <div>
+                    <label style="display:block;margin-bottom:8px;">Show</label>
+                    <div style="display:flex; gap: 12px; align-items:center;">
+                        <label><input type="checkbox" id="show-competitions" checked> Competitions</label>
+                        <label><input type="checkbox" id="show-internships" checked> Internships</label>
+                    </div>
+                    <button id="search-opps-btn" class="btn btn-primary" style="width: 100%; margin-top: 12px;"><i class="fas fa-search"></i> Find Opportunities</button>
+                </div>
+                <div>
+                    <label style="display:block;margin-bottom:8px;">Selected Fields</label>
+                    <div id="selected-fields-tags" class="program-tags"></div>
+                </div>
+            </div>
+            <div id="opps-list"></div>
+        </div>
     </div>
 
     <div id="detail-page" class="container hidden">
@@ -802,6 +830,14 @@
                 <button id="kb-refresh-btn" class="btn btn-secondary" style="flex:1;"><i class="fas fa-refresh"></i> <span data-i18n="admin.refresh">Refresh List</span></button>
             </div>
             <div id="kb-list" style="max-height: 360px; overflow: auto;"></div>
+            <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #e5e9f0;">
+                <h3 style="font-size: 18px; margin-bottom: 8px;"><i class="fas fa-file-excel"></i> Import Opportunities (Excel)</h3>
+                <div class="form-group">
+                    <label>Excel Path</label>
+                    <input id="opps-excel-path" type="text" placeholder="Hackathon_Data sheet (1).xlsx">
+                </div>
+                <button id="import-opps-btn" class="btn btn-primary"><i class="fas fa-download"></i> Import</button>
+            </div>
         </div>
     </div>
 
@@ -1079,6 +1115,7 @@
                                 const card = document.createElement('div');
                                 card.className = 'program-card';
                                     card.onclick = () => showPage('detail', prog.id);
+                                card.dataset.university = prog.university || prog.name || '';
                                 card.innerHTML = `
                                     <div class="program-header">
                                         <div class="program-title">
@@ -1097,6 +1134,7 @@
                                     <div class="program-tags">
                                         ${(prog.fields || []).map(f => `<span class="program-tag">${f}</span>`).join('')}
                                     </div>
+                                    <div class="program-policies" style="margin-top:6px;"></div>
                                 `;
                                 container.appendChild(card);
                                     const favBtn = card.querySelector('button[data-fav]');
@@ -1121,6 +1159,8 @@
                                     const title = rec.university_name || rec.university_id || 'Recommendation';
                                     const reasons = (rec.match_analysis ? [rec.match_analysis] : []).concat(rec.strengths || []);
                                     const toConfirm = (rec.weaknesses || []).concat(rec.improvement_suggestions || []);
+                                    const comps = rec.recommended_competitions || [];
+                                    const interns = rec.suggested_internships || [];
                                     html += `
                                         <div class="program-card">
                                             <div class="program-header">
@@ -1133,6 +1173,8 @@
                                             <div style="font-size:14px; color:#333;">
                                                 ${reasons.length ? `<div style="margin-bottom:8px;"><strong>Reasons:</strong><ul style="margin-left:16px;">${reasons.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
                                                 ${toConfirm.length ? `<div style="margin-bottom:8px; color:#dc2626;"><strong>To Confirm:</strong><ul style="margin-left:16px;">${toConfirm.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
+                                                ${comps.length ? `<div style="margin-bottom:8px;"><strong>Competitions:</strong><ul style="margin-left:16px;">${comps.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
+                                                ${interns.length ? `<div style="margin-bottom:8px;"><strong>Internships:</strong><ul style="margin-left:16px;">${interns.map(r => `<li>${r}</li>`).join('')}</ul></div>` : ''}
                                                 ${(rec.scholarship_opportunities && rec.scholarship_opportunities.length) ? `<div style="margin-bottom:8px; color:#059669;"><strong>Scholarships:</strong> ${rec.scholarship_opportunities.join(', ')}</div>` : ''}
                                                 ${rec.application_deadline ? `<div style="margin-bottom:8px;"><strong>Deadline:</strong> ${rec.application_deadline}</div>` : ''}
                                             </div>
@@ -1154,6 +1196,48 @@
                                 llmCard.classList.add('hidden');
                             }
                         }
+
+                        // 每个学校卡片展示 Policies（不在 Opportunities）
+                        fetch('/api/policies')
+                          .then(r => r.json())
+                          .then(d => {
+                              const policies = (d.policies || []).filter(p => p.link);
+                              function sanitizeLink(u) {
+                                  if (!u) return null;
+                                  let s = String(u).trim();
+                                  const m = s.match(/https?:\/\/[^\s]+/i);
+                                  if (m) s = m[0];
+                                  if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+                                  try { return encodeURI(s); } catch { return s; }
+                              }
+                              function norm(x) {
+                                  return String(x || '').toLowerCase().replace(/university|college|univ|uni/g, '').trim();
+                              }
+                              function matches(univ, puniv) {
+                                  const a = norm(univ);
+                                  const b = norm(puniv);
+                                  return a.includes(b) || b.includes(a);
+                              }
+                              const cards = document.querySelectorAll('#programs-list .program-card');
+                              cards.forEach(card => {
+                                  const univ = card.dataset.university || '';
+                                  const div = card.querySelector('.program-policies');
+                                  if (!div) return;
+                                  const matched = policies.filter(p => matches(univ, p.university)).slice(0, 3);
+                                  if (!matched.length) {
+                                      div.innerHTML = '';
+                                      return;
+                                  }
+                                  let html = `<div style="font-size:13px; color:#374151;"><strong>Policies:</strong> `;
+                                  html += matched.map(p => {
+                                      const link = sanitizeLink(p.link);
+                                      return link ? `<a class="btn btn-outline" href="${link}" target="_blank" rel="noopener noreferrer" style="padding:4px 10px; border-radius:20px; font-size:12px; margin-right:6px;"><i class="fas fa-external-link-alt"></i> ${p.title}</a>` : '';
+                                  }).join('');
+                                  html += `</div>`;
+                                  div.innerHTML = html;
+                              });
+                          })
+                          .catch(() => {});
                     })
                     .catch(err => {
                         console.error(err);
@@ -1164,6 +1248,112 @@
                         searchBtn.innerHTML = '<i class="fas fa-search"></i> Search Programs';
                     });
                 });
+            }
+            
+            const searchOppsBtn = document.getElementById('search-opps-btn');
+            if (searchOppsBtn) {
+                function sanitizeLink(u) {
+                    if (!u) return null;
+                    let s = String(u).trim();
+                    const m = s.match(/https?:\/\/[^\s]+/i);
+                    if (m) s = m[0];
+                    if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+                    try { return encodeURI(s); } catch { return s; }
+                }
+                searchOppsBtn.addEventListener('click', function() {
+                    const fieldSel = document.getElementById('field-select');
+                    const showComps = document.getElementById('show-competitions')?.checked;
+                    const showInterns = document.getElementById('show-internships')?.checked;
+                    const fields = Array.from(fieldSel.selectedOptions).map(o => o.value);
+                    const params = new URLSearchParams();
+                    if (fields.length && !fields.includes('ALL')) params.append('fields', fields.join(','));
+                    const selectedFields = fields.filter(v => v && v !== 'ALL');
+                    const oppsList = document.getElementById('opps-list');
+                    oppsList.innerHTML = '';
+                    const reqs = [];
+                    if (showComps) reqs.push(fetch('/api/competitions?' + params.toString()).then(r => r.json()));
+                    if (showInterns) reqs.push(fetch('/api/internships?' + params.toString()).then(r => r.json()));
+                    const showPolicies = false;
+                    Promise.all(reqs).then(results => {
+                        results.forEach((res, idx) => {
+                            let sectionTitle = '';
+                            let list = [];
+                            if (res.competitions) {
+                                sectionTitle = 'Competitions';
+                                list = res.competitions || [];
+                            } else if (res.internships) {
+                                sectionTitle = 'Internships';
+                                list = res.internships || [];
+                            }
+                            if (list.length) {
+                                const section = document.createElement('div');
+                                section.innerHTML = `<h3 style="margin: 8px 0 12px;">${sectionTitle}</h3>`;
+                                list.forEach(it => {
+                                    if (res.competitions || res.internships) {
+                                        const safeLink = sanitizeLink(it.link);
+                                        if (!safeLink) return;
+                                        const matchedFields = Array.isArray(it.fields) ? it.fields.filter(f => selectedFields.includes(f)) : [];
+                                        if (selectedFields.length && matchedFields.length === 0) return;
+                                    }
+                                    const card = document.createElement('div');
+                                    card.className = 'program-card';
+                                    if (res.competitions || res.internships) {
+                                        const safeLink = sanitizeLink(it.link);
+                                        card.innerHTML = `
+                                            <div class="program-header">
+                                                <div class="program-title">
+                                                     ${safeLink ? `<a class="btn btn-primary" href="${safeLink}" target="_blank" rel="noopener noreferrer" aria-label="View details for ${it.name || it.title}" style="padding:6px 12px; border-radius:20px; font-size:14px;"><i class="fas fa-external-link-alt"></i> ${it.name}</a>` : `<h3>${it.name}</h3>`}
+                                                    <div class="program-name">${(it.company || it.level || '')}</div>
+                                                </div>
+                                                ${it.deadline ? `<div class="program-badge">${it.deadline}</div>` : ''}
+                                            </div>
+                                            <div class="program-meta">
+                                                <span><i class="fas fa-map-marker-alt"></i> ${it.city || ''}</span>
+                                                 ${(() => { const mf = Array.isArray(it.fields) ? it.fields.filter(f => selectedFields.includes(f)) : []; return (mf.length ? `<span><i class="fas fa-tags"></i> ${mf.join(', ')}</span>` : '') })()}
+                                            </div>
+                                            ${it.description ? `<div style="font-size:14px; color:#374151; margin-top:8px;">${it.description}</div>` : ''}
+                                        `;
+                                        if (safeLink) {
+                                            card.style.cursor = 'pointer';
+                                            card.addEventListener('click', function(e) {
+                                                const t = e.target;
+                                                const isAnchor = t && t.tagName === 'A';
+                                                if (!isAnchor) {
+                                                    window.open(safeLink, '_blank', 'noopener,noreferrer');
+                                                }
+                                            });
+                                            const a = card.querySelector('a');
+                                            if (a) {
+                                                a.addEventListener('click', function(e) { e.stopPropagation(); });
+                                            }
+                                        }
+                                    } else {
+                                        // Policies no longer displayed under Opportunities
+                                    }
+                                    section.appendChild(card);
+                                });
+                                oppsList.appendChild(section);
+                            }
+                        });
+                        if (!oppsList.innerHTML) {
+                            oppsList.innerHTML = '<div style="color:#6b7280;">No opportunities found for the selected filters.</div>';
+                        }
+                    }).catch(() => {
+                        oppsList.innerHTML = '<div style="color:#ef4444;">Failed to load opportunities.</div>';
+                    });
+                });
+            }
+            const fieldSel = document.getElementById('field-select');
+            if (fieldSel) {
+                const tagsEl = document.getElementById('selected-fields-tags');
+                const updateTags = () => {
+                    const fields = Array.from(fieldSel.selectedOptions).map(o => o.value).filter(v => v && v !== 'ALL');
+                    if (tagsEl) {
+                        tagsEl.innerHTML = fields.map(f => `<span class="program-tag">${f}</span>`).join('');
+                    }
+                };
+                fieldSel.addEventListener('change', updateTags);
+                updateTags();
             }
             
             // Admin 显示开关（URL ?admin=1 或本地存储 admin=1；快捷键 Alt+A 切换）
@@ -1330,6 +1520,26 @@
                         }
                     })
                     .catch(() => {});
+            }
+            const importOppsBtn = document.getElementById('import-opps-btn');
+            if (importOppsBtn) {
+                importOppsBtn.addEventListener('click', function() {
+                    const user = getCurrentUser();
+                    const token = user && user.access_token ? user.access_token : null;
+                    const headers = token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+                    const pathInput = document.getElementById('opps-excel-path');
+                    const path = pathInput && pathInput.value ? pathInput.value : null;
+                    fetch('/api/opportunities/import_excel', {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({ path: path || null, move_to_knowledge: true })
+                    })
+                    .then(r => r.json())
+                    .then(d => {
+                        alert('Imported: competitions=' + (d.competitions_imported || 0) + ', internships=' + (d.internships_imported || 0));
+                    })
+                    .catch(() => alert('Import failed.'));
+                });
             }
             // 登录对接
             const loginBtn = document.getElementById('login-btn');

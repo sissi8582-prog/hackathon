@@ -1,0 +1,74 @@
+{
+  "competitions": [
+    {
+      "ext_id": "comp_medicine_18_2",
+      "name": "Internships/programmes",
+      "fields_offered": "[\"Medicine\"]",
+      "link": ""
+    },
+    {
+      "ext_id": "comp_medicine_19_2",
+      "name": "Fields",
+      "fields_offered": "[\"Medicine\"]",
+      "link": ""
+    },
+    {
+      "ext_id": "comp_medicine_20_2",
+      "name": "Intern/prog 1",
+      "fields_offered": "[\"Medicine\"]",
+      "link": ""
+    },
+    {
+      "ext_id": "comp_medicine_21_2",
+      "name": "Intern/prog 2",
+      "fields_offered": "[\"Medicine\"]",
+      "link": ""
+    }
+  ],
+  "internships": [],
+  "policies": [],
+  "universities": [
+    {
+      "ext_id": "thu_cs_ms",
+      "name": "Tsinghua University",
+      "city": "Beijing",
+      "requirements": "{\"gpa_min\": 3.3, \"toefl_min\": 95, \"ielts_min\": 6.5, \"hsk_required\": false, \"hsk_min_level\": null, \"hsk_min_score\": null, \"special_requirements\": \"May require interview or entrance test\"}"
+    },
+    {
+      "ext_id": "pku_bio_ms",
+      "name": "Peking University",
+      "city": "Beijing",
+      "requirements": "{\"gpa_min\": 3.8, \"toefl_min\": 100, \"ielts_min\": 7.0, \"hsk_required\": false, \"hsk_min_level\": 6, \"hsk_min_score\": 210, \"special_requirements\": \"需要参加入学考试或面试\"}"
+    },
+    {
+      "ext_id": "sjtu_me_ms",
+      "name": "Shanghai Jiao Tong University",
+      "city": "Shanghai",
+      "requirements": "{\"gpa_min\": 3.0, \"toefl_min\": 90, \"ielts_min\": 6.0, \"hsk_required\": false, \"hsk_min_level\": null, \"hsk_min_score\": null, \"special_requirements\": \"Portfolio or project list recommended\"}"
+    },
+    {
+      "ext_id": "fudan_fin_ms",
+      "name": "Fudan University",
+      "city": "Shanghai",
+      "requirements": "{\"gpa_min\": 3.2, \"toefl_min\": 95, \"ielts_min\": 6.5, \"hsk_required\": false, \"hsk_min_level\": null, \"hsk_min_score\": null, \"special_requirements\": \"Economics/math background preferred\"}"
+    },
+    {
+      "ext_id": "peking",
+      "name": "Peking",
+      "city": "Beijing",
+      "requirements": "{\"gpa_min\": \"IELTS\", \"hsk_min\": \"TOEFL\", \"toefl_min\": \"Competition Matching\"}"
+    },
+    {
+      "ext_id": "tsinghua",
+      "name": "Tsinghua",
+      "city": "Beijing",
+      "requirements": "{\"gpa_min\": \"6.5\", \"hsk_min\": \"80\"}"
+    },
+    {
+      "ext_id": "bnu",
+      "name": "BNU",
+      "city": "Beijing",
+      "requirements": "{\"gpa_min\": \"6.5\", \"hsk_min\": \"80\"}"
+    }
+  ]
+}

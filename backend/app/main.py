@@ -717,3 +717,138 @@ def import_excel(payload: ImportExcelPayload, current_user=Depends(get_current_u
         except Exception:
             moved = None
     return {"imported": imported, "moved_to": moved}
+
+class ImportOppExcelPayload(BaseModel):
+    path: Optional[str] = None
+    move_to_knowledge: Optional[bool] = True
+
+@app.post("/api/opportunities/import_excel")
+def import_opportunities_excel(payload: ImportOppExcelPayload, current_user=Depends(get_current_user)):
+    if not getattr(current_user, "is_admin", False):
+        raise HTTPException(status_code=403, detail="forbidden")
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    src_path = payload.path or os.path.join(base_dir, "Hackathon_Data sheet (1).xlsx")
+    if not os.path.isfile(src_path):
+        raise HTTPException(status_code=404, detail="excel not found")
+    try:
+        import openpyxl
+    except Exception:
+        raise HTTPException(status_code=500, detail="openpyxl not installed")
+    try:
+        wb = openpyxl.load_workbook(filename=src_path, data_only=True, read_only=True)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    rows = []
+    for ws in wb.worksheets:
+        header = None
+        for i, row in enumerate(ws.iter_rows(values_only=True)):
+            if i == 0:
+                header = [str(c).strip().lower() if c is not None else "" for c in row]
+                continue
+            rec = {header[j]: row[j] for j in range(len(header))}
+            rows.append(rec)
+    def g(v):
+        return v if v is not None and str(v).strip() != "" else None
+    def split_list(v):
+        if v is None:
+            return []
+        if isinstance(v, list):
+            return [str(x).strip() for x in v if x]
+        s = str(v)
+        if not s.strip():
+            return []
+        parts = [p.strip() for p in s.replace("；",";").replace(",",";").split(";")]
+        return [p for p in parts if p]
+    def slug(s):
+        return "".join(ch.lower() if str(ch).isalnum() else "_" for ch in str(s)).strip("_")
+    from .models import Competition, Internship
+    db = SessionLocal()
+    imported_comp = 0
+    imported_intern = 0
+    try:
+        for r in rows:
+            typ = str(r.get("type") or "").strip().lower()
+            name = g(r.get("name"))
+            if not name or typ not in ("competition", "internship"):
+                continue
+            fields = split_list(r.get("fields"))
+            city = g(r.get("city"))
+            link = g(r.get("link"))
+            deadline = g(r.get("deadline"))
+            desc = g(r.get("description"))
+            if typ == "competition":
+                level = g(r.get("level"))
+                ext_id = f"comp_{slug(name)}"
+                x = db.query(Competition).filter(Competition.ext_id == ext_id).first()
+                if not x:
+                    x = Competition(
+                        ext_id=ext_id,
+                        name=name,
+                        fields_offered=json.dumps(fields, ensure_ascii=False),
+                        city=city,
+                        level=level,
+                        link=link,
+                        deadline=deadline,
+                        description=desc
+                    )
+                    db.add(x)
+                else:
+                    x.name = name
+                    x.fields_offered = json.dumps(fields, ensure_ascii=False)
+                    x.city = city
+                    x.level = level
+                    x.link = link
+                    x.deadline = deadline
+                    x.description = desc
+                imported_comp += 1
+            else:
+                company = g(r.get("company"))
+                reqs = g(r.get("requirements"))
+                ext_id = f"intern_{slug(name)}"
+                y = db.query(Internship).filter(Internship.ext_id == ext_id).first()
+                if not y:
+                    y = Internship(
+                        ext_id=ext_id,
+                        company=company,
+                        name=name,
+                        fields_offered=json.dumps(fields, ensure_ascii=False),
+                        city=city,
+                        link=link,
+                        deadline=deadline,
+                        description=desc,
+                        requirements=reqs
+                    )
+                    db.add(y)
+                else:
+                    y.company = company
+                    y.name = name
+                    y.fields_offered = json.dumps(fields, ensure_ascii=False)
+                    y.city = city
+                    y.link = link
+                    y.deadline = deadline
+                    y.description = desc
+                    y.requirements = reqs
+                imported_intern += 1
+        db.commit()
+    finally:
+        db.close()
+    moved = None
+    if payload.move_to_knowledge:
+        try:
+            knowledge_dir = os.path.join(base_dir, "knowledge")
+            os.makedirs(knowledge_dir, exist_ok=True)
+            target = os.path.join(knowledge_dir, os.path.basename(src_path))
+            if os.path.abspath(src_path) != os.path.abspath(target):
+                try:
+                    os.replace(src_path, target)
+                except Exception:
+                    import shutil
+                    shutil.copy2(src_path, target)
+                    try:
+                        os.remove(src_path)
+                    except Exception:
+                        pass
+            moved = target
+        except Exception:
+            moved = None
+    return {"competitions_imported": imported_comp, "internships_imported": imported_intern, "moved_to": moved}

@@ -1,0 +1,204 @@
+{
+  "competitions": [
+    {
+      "ext_id": "comp_medicine_impho",
+      "name": "Indonesian Medical Physiology Olympiad (IMPhO)",
+      "fields_offered": ["Medicine"],
+      "level": "International",
+      "link": " `https://bemfkuntad.or.id/event-publication-indonesian-medical-physiology-olympiad-impho-unair-2024/` ",
+      "description": "International medical physiology olympiad for high school students"
+    },
+    {
+      "ext_id": "comp_medicine_nmgbc",
+      "name": "National Medical & General Biology Competition (NMGBC)",
+      "fields_offered": ["Medicine"],
+      "level": "National",
+      "link": " `https://nmgbc.fk.ub.ac.id/` ",
+      "description": "Indonesian national medical and biology competition"
+    },
+    {
+      "ext_id": "comp_medicine_ukmdo",
+      "name": "UK Medicine and Dentistry Olympiad (UKMDO)",
+      "fields_offered": ["Medicine"],
+      "level": "International",
+      "link": " `https://ukmdo.co.uk/` ",
+      "description": "UK-based medicine and dentistry olympiad"
+    },
+    {
+      "ext_id": "comp_medicine_medspin",
+      "name": "MEDSPIN",
+      "fields_offered": ["Medicine"],
+      "level": "International",
+      "link": " `https://www.medspin.ro/` ",
+      "description": "International medical science and application competition"
+    },
+    {
+      "ext_id": "comp_medicine_science_in_medicine",
+      "name": "Science in Medicine School Teams Prize",
+      "fields_offered": ["Medicine"],
+      "level": "International",
+      "link": " `https://www.imperial.ac.uk/bhf-research-excellence/community/` ",
+      "description": "Imperial College London annual science in medicine competition for sixth form students"
+    },
+    {
+      "ext_id": "comp_engineering_first",
+      "name": "FIRST Robotics Competition",
+      "fields_offered": ["Engineering"],
+      "level": "International",
+      "link": " `https://www.firstinspires.org/robotics/frc` ",
+      "description": "Global robotics competition for high school students"
+    },
+    {
+      "ext_id": "comp_engineering_iyia",
+      "name": "International Young Inventors Award (IYIA)",
+      "fields_offered": ["Engineering"],
+      "level": "International",
+      "link": " `https://iyia.muips.org/` ",
+      "description": "International invention competition for young innovators"
+    },
+    {
+      "ext_id": "comp_engineering_opsi",
+      "name": "Olimpiade Penelitian Siswa Indonesia (OPSI)",
+      "fields_offered": ["Engineering"],
+      "level": "National",
+      "link": " `https://pusatprestasinasional.kemendikdasmen.go.id/event/riset-dan-inovasi/sma/olimpiade-penelitian-siswa-indonesia-opsi-jenjang-pendidikan-menengah-2026-2026-sma` ",
+      "description": "Indonesian student research olympiad"
+    },
+    {
+      "ext_id": "comp_engineering_james_dyson",
+      "name": "James Dyson Award",
+      "fields_offered": ["Engineering"],
+      "level": "International",
+      "link": " `https://www.jamesdysonaward.org/` ",
+      "description": "International design and engineering competition"
+    },
+    {
+      "ext_id": "comp_engineering_shell_ecomarathon",
+      "name": "Shell Eco-marathon",
+      "fields_offered": ["Engineering"],
+      "level": "International",
+      "link": " `https://www.shell.com/energy-and-innovation/shell-ecomarathon.html` ",
+      "description": "Energy efficiency competition for student-built vehicles"
+    },
+    {
+      "ext_id": "comp_cs_gsoc",
+      "name": "Google Summer of Code",
+      "fields_offered": ["Computer Science"],
+      "level": "International",
+      "link": " `https://summerofcode.withgoogle.com/` ",
+      "description": "Global online program focused on open source software development"
+    },
+    {
+      "ext_id": "comp_cs_usaco",
+      "name": "USACO (USA Computing Olympiad)",
+      "fields_offered": ["Computer Science"],
+      "level": "International",
+      "link": " `http://www.usaco.org/` ",
+      "description": "USA Computing Olympiad programming competition"
+    },
+    {
+      "ext_id": "comp_cs_gemastik",
+      "name": "Gemastik",
+      "fields_offered": ["Computer Science"],
+      "level": "National",
+      "link": " `https://gemastik.id/` ",
+      "description": "Indonesian national student competition in IT and creative fields"
+    },
+    {
+      "ext_id": "comp_cs_imagine_cup",
+      "name": "Imagine Cup (Microsoft)",
+      "fields_offered": ["Computer Science"],
+      "level": "International",
+      "link": " `https://imaginecup.microsoft.com/` ",
+      "description": "Microsoft's global student technology competition"
+    },
+    {
+      "ext_id": "comp_cs_ctf",
+      "name": "Capture The Flag (CTF) Global Competitions",
+      "fields_offered": ["Computer Science"],
+      "level": "International",
+      "link": " `https://ctftime.org/` ",
+      "description": "Cybersecurity and hacking competitions worldwide"
+    },
+    {
+      "ext_id": "comp_business_wharton",
+      "name": "Wharton Global High School Investment Competition",
+      "fields_offered": ["Business & Economics"],
+      "level": "International",
+      "link": " `https://globalyouth.wharton.upenn.edu/investment-competition/` ",
+      "description": "Wharton School investment and finance competition"
+    },
+    {
+      "ext_id": "comp_business_inasec",
+      "name": "Indonesia National Science Enterprise Challenge (INASEC)",
+      "fields_offered": ["Business & Economics"],
+      "level": "National",
+      "link": " `https://inasec.1928.id/about-inasec/` ",
+      "description": "12-hour business idea competition for high school students"
+    },
+    {
+      "ext_id": "comp_business_diamond",
+      "name": "Diamond Challenge",
+      "fields_offered": ["Business & Economics"],
+      "level": "International",
+      "link": " `https://diamondchallenge.org/` ",
+      "description": "Global youth entrepreneurship competition"
+    },
+    {
+      "ext_id": "comp_business_hsbc",
+      "name": "HSBC Business Case Competition",
+      "fields_offered": ["Business & Economics"],
+      "level": "International",
+      "link": " `https://www.hsbc.com/careers/students-and-graduates/competitions` ",
+      "description": "HSBC business case competition for students"
+    },
+    {
+      "ext_id": "comp_business_blue_ocean",
+      "name": "Blue Ocean Competition",
+      "fields_offered": ["Business & Economics"],
+      "level": "International",
+      "link": " `https://blueoceancompetition.org/` ",
+      "description": "International business and entrepreneurship competition"
+    },
+    {
+      "ext_id": "comp_language_iol",
+      "name": "International Linguistics Olympiad (IOL)",
+      "fields_offered": ["Language & Culture"],
+      "level": "International",
+      "link": " `https://ioling.org/` ",
+      "description": "International olympiad in linguistics"
+    },
+    {
+      "ext_id": "comp_language_hsk_video",
+      "name": "HSK Short Video Competition",
+      "fields_offered": ["Language & Culture"],
+      "level": "International",
+      "link": " `https://ensie.nankai.edu.cn/info/1039/1277.htm` ",
+      "description": "Chinese language short video competition for HSK test-takers"
+    },
+    {
+      "ext_id": "comp_language_mun",
+      "name": "International Model United Nations",
+      "fields_offered": ["Language & Culture"],
+      "level": "International",
+      "link": " `https://www.un.org/en/mun` ",
+      "description": "Model UN conferences worldwide"
+    },
+    {
+      "ext_id": "comp_language_john_locke",
+      "name": "John Locke Institute Essay Competition",
+      "fields_offered": ["Language & Culture"],
+      "level": "International",
+      "link": " `https://www.johnlockeinstitute.com/essay-competition` ",
+      "description": "Global essay competition in philosophy, politics, economics and more"
+    },
+    {
+      "ext_id": "comp_language_bilingual_broadcast",
+      "name": "Fourth Global Youth Bilingual Broadcast Contest",
+      "fields_offered": ["Language & Culture"],
+      "level": "International",
+      "link": " `https://en.cuc.edu.cn/EnglishNews/2026/0215/c10201a267013/page.htm` ",
+      "description": "Bilingual broadcast competition for global youth"
+    }
+  ]
+}

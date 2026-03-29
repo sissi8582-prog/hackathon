@@ -1,68 +1,52 @@
 # SinoScholar — AI Admissions Advisor for Indonesian Students
 
-## A · Problem Statement
+## Problem Statement
 
-Indonesian high‑school and undergrad applicants struggle to discover, understand, and meet Chinese universities’ admission requirements. Information is fragmented across PDFs, spreadsheets, and web pages in mixed languages; matching one’s CV (GPA, HSK, IELTS/TOEFL) to program policies is manual and error‑prone. This causes low confidence, missed deadlines, and suboptimal program choices.
+Indonesian applicants face fragmented, multilingual admission data from Chinese universities. Manual CV-to-policy matching is error-prone, leading to missed deadlines and suboptimal program choices.
 
-## B · Solution
+## Solution
 
-SinoScholar is a web app that:
-- Extracts key facts from a student’s CV (GPA, HSK level/score, IELTS/TOEFL) using AI with OCR fallback.
-- Matches the profile against curated program policies and a built‑in knowledge base (documents list, major catalog), producing structured “matched vs. to‑confirm” checklists and AI‑generated recommendations in English or Bahasa Indonesia.
-- Lets admins upload/refresh knowledge files securely; users can favorite programs and compare them in a table.
+SinoScholar is a bilingual (EN/ID) web application that:
 
-User flow:
-1) Upload CV (PDF/DOCX/TXT) or paste text → AI parses scores and interests.  
-2) Choose language (EN/ID) → Search Programs → see ranked results with matched/missing items.  
-3) Open “AI Recommendations” for rationale, next steps, scholarships, and deadlines.  
-4) Favorite programs → Compare page shows side‑by‑side table.  
-5) Admins manage knowledge base via protected endpoints/UI.
+- Extracts academic credentials (GPA, HSK, IELTS/TOEFL) from CVs via LLM-based parsing with OCR fallback
+- Matches profiles against a vectorized knowledge base of program policies, producing structured matched/missing checklists
+- Provides AI-generated rationales, scholarship insights, and deadlines
+- Supports admin-only knowledge management, program favoriting, and side-by-side comparison
 
-## C · Target Users
+## Target Users
 
-Primary user: Indonesian high‑school seniors and undergrads applying to Chinese universities; secondarily, school counselors.  
-Usage scenario: A grade‑12 student uploads a CV, gets extracted GPA 3.6 / HSK‑4 / IELTS 6.5, filters for Beijing + CS, and receives programs ranked by fit with explicit missing items and deadlines.
+Primary: Indonesian high school seniors and undergraduates applying to Chinese universities  
+Secondary: School counselors  
+Core scenario: Student uploads CV → system extracts GPA 3.6 / HSK 4 / IELTS 6.5 → filters by field (e.g., Computer Science) → receives ranked programs with explicit eligibility gaps and deadlines
 
-## D · Core Value Proposition
+## Core Value Proposition
 
-For Indonesian applicants and counselors, SinoScholar analyzes CVs and university policies to deliver bilingual, actionable recommendations with matched/missing items, so they can select suitable programs and avoid missed requirements—unlike manual browsing of PDFs and disparate sites.
+Replaces manual PDF browsing with centralized, bilingual, LLM-reasoned eligibility analysis. Reduces research time, improves submission accuracy.
 
-Brief explanation: SinoScholar centralizes policy data, extracts CV facts (with OCR for scanned PDFs), and uses LLM reasoning with a knowledge base to explain eligibility, scholarships, and deadlines. It reduces research time and improves submission quality.
+## AI & Technical Approach
 
-## E · AI & Technical Approach
+### Models
+- **MiniMax Chat Completions** — CV extraction, recommendation reasoning, bilingual summarization
+- **MiniMax Embeddings** — knowledge chunk retrieval from program policies and major catalog
 
-AI / model types:
-- LLM (MiniMax chat completions) for CV information extraction (when configured) and recommendation reasoning.
-- Embeddings (MiniMax embeddings) for knowledge chunk retrieval (documents list, major catalog).
+### Why AI
+Program policies are heterogeneous in format, language, and structure. LLMs handle parsing variability and generate contextual explanations; embeddings enable semantic retrieval over unstructured policy documents without rigid schemas.
 
-Role of AI:
-- Parse noisy CV text, generate structured recommendations, and summarize matched vs. to‑confirm elements in EN/ID.
-
-Why AI: Program policies vary in format and language; purely rule‑based parsing is brittle. LLMs handle heterogeneity and summarization; embeddings improve context retrieval relevance.
-
-## F · Key Assumptions
-
-1) Applicants can provide CVs with at least basic textual data; otherwise OCR can recover enough content for extraction.  
-2) Program policies are kept reasonably current in the knowledge base; admins can upload new files when policies change.  
-3) MiniMax API access is available for production; if not, the product falls back to regex extraction and rule‑only ranking.
-
-## G · Differentiation (Optional)
-
-- Bilingual output (EN/ID) with one‑click switching.  
-- Secure, admin‑only knowledge management built into the app.  
-- OCR fallback for scanned PDFs and robust JSON schema validation/repair for LLM outputs.
-
----
+### Fallback Strategy
+When MiniMax API is unavailable, the system reverts to regex-based extraction and rule-only ranking, preserving core functionality.
 
 ## Architecture & Tech Stack
 
-- Backend: FastAPI (Python), SQLite (SQLAlchemy), JWT auth, CORS.  
-- AI: MiniMax chat completions (recommendations, CV extraction), MiniMax embeddings (chunk retrieval).  
-- Parsing: pypdf → pdfminer.six fallback; optional OCR via pdf2image + Tesseract.  
-- Frontend: Vanilla HTML/CSS/JS (single page), i18n (EN/ID), Favorites & Compare page.  
-- Data: universities table seeded from backend/data/programs.json; admin‑managed knowledge files under /knowledge.
+| Layer | Technology |
+|-------|------------|
+| Backend | FastAPI (Python), SQLAlchemy, SQLite, JWT, CORS |
+| AI | MiniMax chat completions, MiniMax embeddings |
+| Document Parsing | pypdf → pdfminer.six fallback; OCR via pdf2image + Tesseract (optional) |
+| Frontend | Vanilla HTML/CSS/JS, i18n (EN/ID), SPA with Favorites & Compare views |
+| Data | Seeded from `programs.json`; knowledge files stored in `/knowledge` |
 
 ## Directory Structure
+
 
 ```
 hackathon/
@@ -87,29 +71,47 @@ hackathon/
 ```
 
 ## Environment Variables
-
-- MINIMAX_API_KEY (required for full AI features)  
-- MINIMAX_BASE_URL (default https://api.minimax.chat/v1)  
-- MINIMAX_MODEL (default abab6.5-chat)  
-- MINIMAX_EMBED_MODEL (optional; default embedding-01)  
-- ENABLE_OCR=true (optional; requires system Tesseract + Poppler)
+ 
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| MINIMAX_API_KEY | Required for AI features | — |
+| MINIMAX_BASE_URL | MiniMax API endpoint | https://api.minimax.chat/v1 |
+| MINIMAX_MODEL | Chat model | abab6.5-chat |
+| MINIMAX_EMBED_MODEL | Embedding model | embedding-01 |
+| ENABLE_OCR | Enable OCR fallback (requires Tesseract + Poppler) | false |
 
 ## Run Instructions
 
-Backend:
-```
+```bash
+# Backend
 python -m venv .venv
 source .venv/bin/activate
-pip install -U pip
 pip install -r backend/requirements.txt
-export MINIMAX_API_KEY="your_minimax_key"            # optional but recommended
-export ENABLE_OCR=true                                # optional
+export MINIMAX_API_KEY="your_key"
 uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000
 ```
-Health check: http://localhost:8000/health
+
+Health check: GET /health
 
 Frontend:
 - Open http://localhost:8000/ (root route serves frontend/demo.html)
+
+## Key Endpoints
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | /api/cv/extract | CV parsing with OCR fallback | Public |
+| POST | /api/cv/extract_text | Parse CV from pasted text | Public |
+| POST | /api/recommend | Ranked programs with matched/missing items and AI rationale (structured JSON when available) | Public |
+| GET | /api/competitions | List competitions (filter by fields) | Public |
+| GET | /api/internships | List internships (filter by fields) | Public |
+| GET | /api/policies | Policy links | Public |
+| POST | /users/favorites | Add favorite | User (JWT) |
+| GET  | /users/favorites | List favorites | User (JWT) |
+| DELETE | /users/favorites/{program_id} | Remove favorite | User (JWT) |
+| POST | /api/programs/{id}/compare | Server-side eligibility comparison | Public |
+| POST | /api/db/upload | Upload knowledge files | Admin-only |
+| POST | /api/universities/import_excel | Bulk university import from Excel | Admin-only |
+| POST | /api/opportunities/import_excel | Bulk competition/internship import | Admin-only |
 
 ## Usage Highlights
 
@@ -121,5 +123,101 @@ Frontend:
 
 ## Security Notes
 
-- Never commit API keys. Use environment variables or a local .env (not tracked).  
-- Admin endpoints require JWT auth and is_admin flag. CORS/wildcard is for dev; whitelist in production.
+ - Never commit API keys. Use environment variables or a local .env (not tracked).  
+ - Admin endpoints require JWT auth and is_admin flag. CORS/wildcard is for dev; whitelist in production.
+ 
+---
+ 
+## Feature Alignment (Current Implementation)
+- Resume parsing: PDF/DOCX/TXT; OCR fallback when ENABLE_OCR=true.
+- Program recommendations: `POST /api/recommend` combines rules and LLM, returns structured items with matched/missing elements.
+- Opportunities:
+  - Driven by the Fields selected in “Find Programs” (no city required).
+  - Clickable name button and whole-card click open in a new tab; URLs are sanitized and protocol-completed (http/https).
+  - Policy links are listed and always available.
+- Admin (visible to admins only): knowledge upload/refresh, Excel import for universities/opportunities, LLM status panel.
+- Field name canonicalization: Medicine / Engineering / Computer Science / Business & Economics / Language & Culture.
+- i18n: UI supports EN/ID; AI recommendations can follow the selected language.
+ 
+## Data Import & Debugging
+- Admin endpoints (recommended for non-technical admins):
+  - `POST /api/opportunities/import_excel` imports competitions/internships based on Excel type=competition/internship.
+  - `POST /api/universities/import_excel` imports university rows into DB.
+- Scripts (for technical/bulk operations):
+  - Inspect Excel structure:
+    ```
+    python scripts/debug_excel.py
+    ```
+  - Auto-parse and import (row/column auto-detection, supports `--clear`):
+    ```
+    python scripts/import_excel_data.py --excel "knowledge/Hackathon_Data sheet (1).xlsx" --clear --debug
+    ```
+  - Import from a fixed curated list (with URL sanitization; independent of Excel layout):
+    ```
+    python scripts/import_excel_fixed.py --clear
+    ```
+ 
+## Usage Notes
+- Filters: upload or paste CV → extract → go to Results.
+- Results: choose EN/ID → Search Programs → view program cards and AI Recommendations.
+- Opportunities: enable Competitions/Internships → recommendations follow selected Fields; click name or card to open.
+- Compare: add favorites → compare in a table.
+- Admin: visible after login with is_admin; for knowledge and data maintenance.
+ 
+## Documentation
+- This README serves as the usage and technical entry point for the repository.
+- A separate Product Brief (Markdown/Word/PDF) is recommended for product value, user stories, and evaluation.
+
+## Data Import & Debugging
+Admin UI (recommended):
+- Upload knowledge files directly via admin panel
+- Import universities and opportunities via Excel upload forms
+
+Scripts (for bulk/automated operations):
+```bash
+# Inspect Excel structure
+python scripts/debug_excel.py
+
+# Auto-detect and import (supports --clear to truncate)
+python scripts/import_excel_data.py --excel "knowledge/data.xlsx" --clear --debug
+
+# Import from curated list with URL sanitization
+python scripts/import_excel_fixed.py --clear
+```
+
+## Field Name Canonicalization
+| User-facing | Internal mapping |
+|-------------|------------------|
+| Medicine | Medicine |
+| Engineering | Engineering |
+| Computer Science | Computer Science |
+| Business & Economics | Business & Economics |
+| Language & Culture | Language & Culture |
+
+## Fallback & Robustness
+- If MiniMax API is unavailable: regex-based CV extraction, rule-only ranking
+- If OCR is disabled or fails: falls back to text extraction from PDF/DOCX
+- LLM JSON responses validated and coerced via Pydantic schemas; malformed outputs are discarded
+
+## Testing Notes
+- All admin endpoints require JWT and is_admin=true
+- OCR requires system dependencies: tesseract and poppler-utils (or poppler on macOS)
+- For development without MiniMax, set MINIMAX_API_KEY="" to run in fallback mode
+
+## Product Brief
+This section serves as a placeholder for the separate Product Brief documentation. The complete Product Brief will be provided as a standalone document (Markdown/Word/PDF) covering:
+- User personas & journeys
+- Success metrics / KPIs
+- Feature prioritization
+- User flow diagrams
+- Competitive analysis
+- Monetization strategy
+
+## Repository Documentation Artifacts
+| Artifact | Location | Purpose |
+|---------|----------|---------|
+| Inline code comments | backend/app/*.py | API logic, error handling, and fallback mechanisms |
+| Docstrings | All Python modules | Function-level documentation and type hints |
+| HTML comments | frontend/demo.html | UI component structure and i18n notes |
+| JSON schemas | backend/app/schemas.py | LLM response validation and coercion rules |
+| Import scripts | scripts/*.py | Data migration and debugging utilities with CLI help |

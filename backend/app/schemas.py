@@ -11,6 +11,8 @@ class RecommendationItem(BaseModel):
     weaknesses: List[str] = []
     improvement_suggestions: List[str] = []
     recommended_majors: List[str] = []
+    recommended_competitions: List[str] = []
+    suggested_internships: List[str] = []
     application_deadline: Optional[str] = None
     scholarship_opportunities: List[str] = []
 
@@ -47,6 +49,8 @@ def coerce_llm_json(data: dict):
             "weaknesses": r.get("weaknesses") or [],
             "improvement_suggestions": r.get("improvement_suggestions") or [],
             "recommended_majors": r.get("recommended_majors") or [],
+            "recommended_competitions": r.get("recommended_competitions") or [],
+            "suggested_internships": r.get("suggested_internships") or [],
             "application_deadline": r.get("application_deadline"),
             "scholarship_opportunities": r.get("scholarship_opportunities") or []
         }
@@ -54,7 +58,7 @@ def coerce_llm_json(data: dict):
             item["match_score"] = int(float(item["match_score"]))
         except Exception:
             item["match_score"] = 0
-        for k in ["strengths", "weaknesses", "improvement_suggestions", "recommended_majors", "scholarship_opportunities"]:
+        for k in ["strengths", "weaknesses", "improvement_suggestions", "recommended_majors", "recommended_competitions", "suggested_internships", "scholarship_opportunities"]:
             v = item.get(k)
             if isinstance(v, str):
                 item[k] = [v]

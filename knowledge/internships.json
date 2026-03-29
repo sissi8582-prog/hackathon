@@ -1,0 +1,204 @@
+{
+  "internships": [
+    {
+      "ext_id": "intern_medicine_aimi",
+      "name": "AIMI Summer Research Internship",
+      "company": "AIMI",
+      "fields_offered": ["Medicine"],
+      "link": null,
+      "description": "Summer research internship in medicine"
+    },
+    {
+      "ext_id": "intern_medicine_pmr",
+      "name": "Volunteering as a Palang Merah Remaja (PMR)",
+      "company": "PMR",
+      "fields_offered": ["Medicine"],
+      "link": null,
+      "description": "Indonesian Red Cross youth volunteer program"
+    },
+    {
+      "ext_id": "intern_medicine_united_planet",
+      "name": "United Planet Global Health Internships",
+      "company": "United Planet",
+      "fields_offered": ["Medicine"],
+      "link": null,
+      "description": "Global health internship program"
+    },
+    {
+      "ext_id": "intern_medicine_premed",
+      "name": "Pre-Med Project (Virtual)",
+      "company": "Pre-Med Project",
+      "fields_offered": ["Medicine"],
+      "link": null,
+      "description": "Virtual pre-medical program"
+    },
+    {
+      "ext_id": "intern_medicine_shtem",
+      "name": "Stanford University's SHTEM Summer Internships",
+      "company": "Stanford",
+      "fields_offered": ["Medicine"],
+      "link": null,
+      "description": "Stanford SHTEM summer internship program"
+    },
+    {
+      "ext_id": "intern_engineering_smith",
+      "name": "Smith College Summer Science & Engineering Program (SSEP)",
+      "company": "Smith",
+      "fields_offered": ["Engineering"],
+      "link": null,
+      "description": "Summer science and engineering program at Smith College"
+    },
+    {
+      "ext_id": "intern_engineering_rolls_royce",
+      "name": "Rolls-Royce Engineering Virtual Experience: Discover",
+      "company": "Rolls-Royce",
+      "fields_offered": ["Engineering"],
+      "link": null,
+      "description": "Virtual engineering experience with Rolls-Royce"
+    },
+    {
+      "ext_id": "intern_engineering_imperial",
+      "name": "Imperial Global Summer School",
+      "company": "Imperial",
+      "fields_offered": ["Engineering"],
+      "link": null,
+      "description": "Imperial College London summer school"
+    },
+    {
+      "ext_id": "intern_engineering_ntu",
+      "name": "NTU Singapore Summer Immersion Programme",
+      "company": "NTU",
+      "fields_offered": ["Engineering"],
+      "link": null,
+      "description": "NTU Singapore summer immersion program"
+    },
+    {
+      "ext_id": "intern_engineering_eei",
+      "name": "Explore Engineering Innovation (EEI)",
+      "company": "JHU",
+      "fields_offered": ["Engineering"],
+      "link": null,
+      "description": "Engineering innovation program (online/in-person)"
+    },
+    {
+      "ext_id": "intern_cs_google_step",
+      "name": "Google STEP Internship",
+      "company": "Google",
+      "fields_offered": ["Computer Science"],
+      "link": " `https://buildyourfuture.withgoogle.com/programs/step/` ",
+      "description": "Google's Student Training in Engineering Program"
+    },
+    {
+      "ext_id": "intern_cs_microsoft_explore",
+      "name": "Microsoft Explore Internship",
+      "company": "Microsoft",
+      "fields_offered": ["Computer Science"],
+      "link": " `https://careers.microsoft.com/students/us/en/explore-program` ",
+      "description": "Microsoft Explore internship for first/second-year students"
+    },
+    {
+      "ext_id": "intern_cs_amazon_future_engineer",
+      "name": "Amazon Future Engineer Internship",
+      "company": "Amazon",
+      "fields_offered": ["Computer Science"],
+      "link": " `https://www.amazonfutureengineer.com/internship` ",
+      "description": "Amazon Future Engineer internship program"
+    },
+    {
+      "ext_id": "intern_cs_stanford_ai4all",
+      "name": "Stanford AI4ALL Summer Program",
+      "company": "Stanford",
+      "fields_offered": ["Computer Science"],
+      "link": " `https://ai4all.stanford.edu/` ",
+      "description": "Stanford AI summer program for high school students"
+    },
+    {
+      "ext_id": "intern_cs_girls_who_code",
+      "name": "Girls Who Code Summer Immersion Program",
+      "company": "Girls Who Code",
+      "fields_offered": ["Computer Science"],
+      "link": " `https://girlswhocode.com/programs/summer-immersion-program` ",
+      "description": "Summer coding program for girls"
+    },
+    {
+      "ext_id": "intern_business_bank_of_america",
+      "name": "Bank of America Student Leaders Program",
+      "company": "Bank of America",
+      "fields_offered": ["Business & Economics"],
+      "link": " `https://about.bankofamerica.com/en/making-an-impact/student-leaders` ",
+      "description": "Bank of America student leadership program"
+    },
+    {
+      "ext_id": "intern_business_harvard_precollege",
+      "name": "Harvard Pre-College Program: Economics & Business",
+      "company": "Harvard",
+      "fields_offered": ["Business & Economics"],
+      "link": " `https://summer.harvard.edu/high-school-programs/pre-college-program/` ",
+      "description": "Harvard pre-college program in economics and business"
+    },
+    {
+      "ext_id": "intern_business_wharton_global",
+      "name": "Wharton Global Youth Program",
+      "company": "Wharton",
+      "fields_offered": ["Business & Economics"],
+      "link": " `https://globalyouth.wharton.upenn.edu/` ",
+      "description": "Wharton business programs for high school students"
+    },
+    {
+      "ext_id": "intern_business_ja_company",
+      "name": "JA Company Program",
+      "company": "JA Worldwide",
+      "fields_offered": ["Business & Economics"],
+      "link": " `https://www.jaworldwide.org/program/ja-company-program` ",
+      "description": "Junior Achievement company program"
+    },
+    {
+      "ext_id": "intern_business_fbla",
+      "name": "FBLA National Leadership Conference Internship",
+      "company": "FBLA",
+      "fields_offered": ["Business & Economics"],
+      "link": " `https://fbla.org/events/national-leadership-conference/` ",
+      "description": "FBLA national leadership conference and internship"
+    },
+    {
+      "ext_id": "intern_language_ciee",
+      "name": "CIEE Global Navigator Language & Culture Program",
+      "company": "CIEE",
+      "fields_offered": ["Language & Culture"],
+      "link": " `https://www.ciee.org/go-abroad/high-school-study-abroad/programs` ",
+      "description": "CIEE language and culture immersion programs"
+    },
+    {
+      "ext_id": "intern_language_nsliy",
+      "name": "NSLI-Y",
+      "company": "NSLI-Y",
+      "fields_offered": ["Language & Culture"],
+      "link": " `https://www.nsliforyouth.org/` ",
+      "description": "National Security Language Initiative for Youth"
+    },
+    {
+      "ext_id": "intern_language_afs",
+      "name": "AFS Intercultural Exchange Programs",
+      "company": "AFS",
+      "fields_offered": ["Language & Culture"],
+      "link": " `https://afs.org/intercultural-programs/` ",
+      "description": "AFS intercultural exchange programs"
+    },
+    {
+      "ext_id": "intern_language_yfu",
+      "name": "YFU Language Immersion",
+      "company": "YFU",
+      "fields_offered": ["Language & Culture"],
+      "link": " `https://yfu.org/study-abroad` ",
+      "description": "YFU language immersion programs"
+    },
+    {
+      "ext_id": "intern_language_fulbright",
+      "name": "Fulbright Summer Institute",
+      "company": "Fulbright",
+      "fields_offered": ["Language & Culture"],
+      "link": " `https://us.fulbrightonline.org/summer-institute` ",
+      "description": "Fulbright summer institute for high school students"
+    }
+  ]
+}
