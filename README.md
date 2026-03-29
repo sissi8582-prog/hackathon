@@ -1,5 +1,13 @@
 # SinoScholar — AI Admissions Advisor for Indonesian Students
 
+
+## Introduction
+The international sphere of education is experience a seismic shift in student target study destination preferences. Driven by strengthening bilateral ties, highlighted by 66% of respondents in the 2025 China-Indonesia Survey rating the nations' relationship positively, China has emerged as a premier academic hub for Indonesian talent This geopolitical and economic alignment is reflected in the exponential growth of the Indonesian student body in China, which has climbed from 14,000 in 2018 to over 15,000 by 2025 (Putra, 2025).  
+
+However, the infrastructure supporting this surge of interest and demand has failed to keep pace. While traditional study agents provide manual assistance, there is a critical gap for a streamlined, AI-integrated platform that demystifies complex admission policies and identifies the high-impact extracurricular activities that top-tier Chinese universities prioritize. 
+
+SinoScholar bridges this gap. By leveraging LLM-driven reasoning, we equip students with a high-precision roadmap to success, reducing research time by half and ensuring every applicant can strategically align their profile with the rigorous standards of China’s elite institutions.
+
 ## Problem Statement
 
 Indonesian applicants face fragmented, multilingual admission data from Chinese universities. Manual CV-to-policy matching is error-prone, leading to missed deadlines and suboptimal program choices.
