@@ -31,6 +31,22 @@ Core scenario: Student uploads CV → system extracts GPA 3.6 / HSK 4 / IELTS 6.
 
 Replaces manual PDF browsing with centralized, bilingual, LLM-reasoned eligibility analysis. Reduces research time, improves submission accuracy.
 
+## Solution Evaluation
+
+### Business model
+SinoScholar has the opportunity to operate as an AI-driven platform business model; an ecosystem bridging the gap between high-potential Indonesian talent and the Chinese academic landscape. China has been aggressively scales its internationalization inititatives to become a "global academic hub" (Zhou et al., 2024), SinoScholar serves as a high-efficiency recruitment funnel by providing students with direct hyperlinks to the official platforms of credible institutions.  
+
+By providing students with tracked referral channels to credible institutions, we create a frictionless roadmap to elite admissions, SinoScholar operates as a platform business that provides students a frictionless and seamless AI-driven roadmap to elite admissions, and for institutions, a vast pipeline of qualified candidates, significantly reducing high customer acquisitions costs (CAC), often associated with traditional overseas marketing.  
+
+### Revenue Channels
+SinoScholar’s monetisation strategy is diversified to ensure both immediate cash flow and long-term scalability: 
+
+Fixed referral fees: Our platform charges partnered institutions (universities, language centres, specialised internship providers, university agents) a fixed fee for every lead directed to their programme through our AI matching engine.  
+
+10% percentage in successful student admission fees: SinoScholar recieves a 10% commision on the first-year tuition or admission fees for students successfully enrolled through the platform, or through partnered university agents.
+
+
+
 ## AI & Technical Approach
 
 ### Models
