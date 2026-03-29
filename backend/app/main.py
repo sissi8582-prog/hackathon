@@ -276,38 +276,38 @@ def api_recommend(payload: RecommendRequest):
         gpa_min = req.get("gpa_min")
         if gpa_min is not None:
             if gpa is None:
-                missing.append("GPA 信息缺失")
+                missing.append("GPA info missing")
             elif gpa < gpa_min:
-                missing.append(f"GPA 未达标: {gpa} < {gpa_min}")
+                missing.append(f"GPA below requirement: {gpa} < {gpa_min}")
             else:
-                matched.append(f"GPA 达标: {gpa} ≥ {gpa_min}")
+                matched.append(f"GPA meets requirement: {gpa} ≥ {gpa_min}")
         # TOEFL
         toefl_min = req.get("toefl_min")
         if toefl_min is not None:
             if toefl is None:
-                missing.append("TOEFL 分数缺失")
+                missing.append("TOEFL score missing")
             elif toefl < toefl_min:
-                missing.append(f"TOEFL 未达标: {toefl} < {toefl_min}")
+                missing.append(f"TOEFL below requirement: {toefl} < {toefl_min}")
             else:
-                matched.append(f"TOEFL 达标: {toefl} ≥ {toefl_min}")
+                matched.append(f"TOEFL meets requirement: {toefl} ≥ {toefl_min}")
         # IELTS
         ielts_min = req.get("ielts_min")
         if ielts_min is not None:
             if ielts is None:
-                missing.append("IELTS 分数缺失")
+                missing.append("IELTS score missing")
             elif ielts < ielts_min:
-                missing.append(f"IELTS 未达标: {ielts} < {ielts_min}")
+                missing.append(f"IELTS below requirement: {ielts} < {ielts_min}")
             else:
-                matched.append(f"IELTS 达标: {ielts} ≥ {ielts_min}")
+                matched.append(f"IELTS meets requirement: {ielts} ≥ {ielts_min}")
         # HSK
         hsk_required = req.get("hsk_required")
         if hsk_required:
             if hsk is None:
-                missing.append("HSK 证书缺失")
+                missing.append("HSK certificate missing")
             elif hsk <= 0:
-                missing.append(f"HSK 无效: {hsk}")
+                missing.append(f"Invalid HSK value: {hsk}")
             else:
-                matched.append(f"HSK 提供: {hsk}")
+                matched.append(f"HSK provided: {hsk}")
         # Special requirements
         special_req = req.get("special_requirements")
         if special_req:
